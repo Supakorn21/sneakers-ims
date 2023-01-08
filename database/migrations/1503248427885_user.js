@@ -7,7 +7,7 @@ class UserSchema extends Schema {
   up() {
     this.raw(`
       CREATE TABLE users(
-          id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          id INT UNSIGNED  NOT NULL AUTO_INCREMENT PRIMARY KEY,
           f_name VARCHAR(60) NOT NULL,
           l_name VARCHAR(60) NOT NULL,
           email VARCHAR(60) NOT NULL UNIQUE,

@@ -16,9 +16,10 @@ class CreateOrdersSchema extends Schema {
           state VARCHAR(60) NOT NULL,
           country VARCHAR(3) NOT NULL DEFAULT 'USA',
           payment_type VARCHAR(60) NOT NULL DEFAULT 'paypal',
-          user_id INT NOT NULL,
+          user_id INT UNSIGNED NOT NULL ,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
       )
     `);
   }

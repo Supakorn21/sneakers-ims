@@ -16,9 +16,9 @@ class CreateItemsSchema extends Schema {
           qty INT  UNSIGNED,
           size FLOAT  UNSIGNED,
           order_id INT  UNSIGNED,
+          user_id INT UNSIGNED NOT NULL,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-          CONSTRAINT order_id FOREIGN KEY (order_id) REFERENCES orders(id)
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
     `);
   }

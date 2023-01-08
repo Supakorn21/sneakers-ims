@@ -10,6 +10,7 @@ class BrandsSchema extends Schema {
           id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
           title VARCHAR(200) NOT NULL,
           description TEXT,
+          user_id INT UNSIGNED NOT NULL,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )

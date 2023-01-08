@@ -4,7 +4,9 @@ class ProductController {
   index({ view }) {
     return view.render("admin/products/all");
   }
-  store() {}
+  store({ view }) {
+    return "Hey";
+  }
   create({ view }) {
     return view.render("admin/products/create");
   }

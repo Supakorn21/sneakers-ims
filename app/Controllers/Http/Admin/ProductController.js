@@ -1,5 +1,8 @@
 "use strict";
+
 const Database = use("Database");
+
+var SqlString = require("sqlstring");
 
 class ProductController {
   index({ view }) {
@@ -8,18 +11,40 @@ class ProductController {
   async store({ request, response }) {
     try {
       const post = request.post();
+      let title = post.title;
+      let sku = post.sku;
+      let material = post.material;
+      let description = post.description;
+      let qty = post.qty;
+      let size = post.size;
       await Database.raw(
         `
-      INSERT INTO products (title, sku, material, description,
-        brand_id, qty,size,user_id)
-VALUES("${post.title}","${post.sku}","${post.material}","${post.description}",2,${post.qty},1,1)
+   INSERT INTO products (
+    title,
+    sku,
+    material,
+    description,
+    brand_id,
+    qty,
+    size,
+    user_id
+  )
+VALUES (
+    "${SqlString.escape(title)}",
+    "${SqlString.escape(sku)}",
+    "${SqlString.escape(material)}",
+    "${SqlString.escape(description)}",
+    ${parseInt(1)},
+    ${SqlString.escape(qty)},
+    ${SqlString.escape(size)},
+    ${parseInt(1)}
+  )
     `
       );
-      return `<h1 style="color: green">Saved Success</h1>`;
+
+      return response.redirect("/admin/products");
     } catch (error) {
-      console.log(error);
-      return `<h1 style="color: red">There was an error</h1>
-      <h3>${error.sqlMessage}</h3>`;
+      return response.redirect("/admin/products/create");
     }
   }
   create({ view }) {
@@ -34,5 +59,4 @@ VALUES("${post.title}","${post.sku}","${post.material}","${post.description}",2,
   update() {}
   delete() {}
 }
-
 module.exports = ProductController;

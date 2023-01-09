@@ -2,13 +2,30 @@
 
 const Database = use("Database");
 
-var SqlString = require("sqlstring");
+const sqlString = require("sqlstring");
 
 class ProductController {
-  index({ view }) {
-    return view.render("admin/products/all");
+  async index({ view, response, request }) {
+    try {
+      // let title = post.title;
+      // let sku = post.sku;
+      // let material = post.material;
+      // let description = post.description;
+      // let qty = post.qty;
+      // let size = post.size;
+
+      let allProducts = await Database.raw(`
+      SELECT * FROM products
+      `);
+      allProducts = allProducts[0];
+
+      return view.render("admin/products/all", { allProducts });
+    } catch (error) {
+      console.log(error);
+      // return response.redirect("back");
+    }
   }
-  async store({ request, response }) {
+  async store({ view, response, request }) {
     try {
       const post = request.post();
       let title = post.title;
@@ -30,13 +47,13 @@ class ProductController {
     user_id
   )
 VALUES (
-    "${SqlString.escape(title)}",
-    "${SqlString.escape(sku)}",
-    "${SqlString.escape(material)}",
-    "${SqlString.escape(description)}",
+    ${sqlString.escape(title)},
+    ${sqlString.escape(sku)},
+    ${sqlString.escape(material)},
+    ${sqlString.escape(description)},
     ${parseInt(1)},
-    ${SqlString.escape(qty)},
-    ${SqlString.escape(size)},
+    ${parseInt(qty)},
+    ${sqlString.escape(size)},
     ${parseInt(1)}
   )
     `
@@ -44,19 +61,19 @@ VALUES (
 
       return response.redirect("/admin/products");
     } catch (error) {
-      return response.redirect("/admin/products/create");
+      return response.redirect("back");
     }
   }
-  create({ view }) {
+  create({ view, response, request }) {
     return view.render("admin/products/create");
   }
-  show({ view }) {
+  show({ view, response, request }) {
     return view.render("admin/products/show");
   }
-  edit({ view }) {
+  edit({ view, response, request }) {
     return view.render("admin/products/edit");
   }
-  update() {}
-  delete() {}
+  update({ response, request }) {}
+  delete({ response, request }) {}
 }
 module.exports = ProductController;

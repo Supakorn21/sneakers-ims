@@ -39,14 +39,17 @@
               @each(product in allProducts)
                  <tr>
                 <th scope="row">{{product.id}}</th>
-                <td>{{ product.title}}</td>
+                <td>
+                  <a href="/admin/products/{{product.id}}">
+                  {{ product.title}}
+                    </a>
+                </td>
                 <td>{{product.sku}}</td>
                 <td>{{product.material}}</td>
                 <td>{{product.qty}}</td>
                 <td>{{product.size}}</td>
                 <td>{{product.brand}}</td>
                 <td>{{product.user}}</td>
-                
                 <td>
                   <ul class="d-flex justify-content-center">
                     <li class="mr-3">

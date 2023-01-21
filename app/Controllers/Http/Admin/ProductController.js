@@ -78,8 +78,29 @@ VALUES (
   create({ view, response, request }) {
     return view.render("admin/products/create");
   }
-  show({ view, response, request }) {
-    return view.render("admin/products/show");
+  async show({ view, response, request, params }) {
+    try {
+      let product = await Database.raw(`
+      SELECT products.id, products.title,products.sku,products.img_url, products.description,
+      brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
+      products.material,products.qty,products.size, products.user_id,
+      products.created_at
+      FROM products
+      INNER JOIN brands
+      ON products.brand_id = brands.id
+      INNER JOIN users
+      ON products.user_id = users.id
+      WHERE products.id = ${params.id}
+      ORDER BY created_at ASC
+      LIMIT 1
+      `);
+      product = product[0][0];
+
+      return view.render("admin/products/show", { product });
+    } catch (error) {
+      console.log(error);
+      // return response.redirect("back");
+    }
   }
   edit({ view, response, request }) {
     return view.render("admin/products/edit");

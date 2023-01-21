@@ -18,30 +18,30 @@
       <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-              <img style="width: 100%;  " class="show-products-img" src="https://cdn.filestackcontent.com/CTwPIgkT8y7CF2xGpM8Q" alt="">
+              <img style="width: 100%;  " class="show-products-img" src="{{product.img_url}}" alt="">
            </div>
             <div class="col-md-8">
-               <h2>Title</h2>
+               <h2>{{product.title}}</h2>
               <p>
                 <span>Description:</span>  
-                 I'm baby next level forage put a bird on it, bespoke af literally hammock offal sartorial tumblr cray selfies tattooed squid poutine. Vinyl etsy green juice blog flannel williamsburg pickled roof party tofu sartorial bicycle rights truffaut prism messenger bag fanny pack. Twee banh mi bruh distillery 90's cloud bread, hoodie biodiesel meditation jianbing locavore semiotics thundercats activated charcoal taiyaki. Knausgaard health goth flannel intelligentsia heirloom meggings. Godard prism trust fund cronut. Lyft bodega boys gastropub snackwave stumptown 8-bit hexagon health goth cold-pressed salvia mlkshk synth. Gatekeep locavore ethical meggings health goth chia neutra hell of hot chicken vegan adaptogen keffiyeh microdosing chartreuse. 
+                 {{product.description}}
               </p> 
               <div class="row details">
                 <div class="col-md-3">
                   <h4>SKU</h4>
-                  <span>123123123123123</span>
+                  <span>{{product.sku}}</span>
                 </div>
                 <div class="col-md-3">
                   <h4>Material</h4>
-                  <span>123123123123123</span>
+                  <span>{{product.material}}</span>
                 </div>
                 <div class="col-md-3">
                     <h4>Brand</h4>
-                    <span>123123</span>
+                    <span>{{product.brand}}</span>
                 </div>
                 <div class="col-md-3">
                     <h4>Created By</h4>
-                    <span>123123123123123</span>
+                    <span>{{product.user}}</span>
                 </div>
               </div>
            </div>
@@ -55,11 +55,11 @@
   <div class="col-md-3 mt-5">
     <div class="card">
       <div class="card-body">
-       <a href="products/id/edit" type="button" class="btn btn-primary btn-lg btn-block">
+       <a href="products/{{product.id}}/edit" type="button" class="btn btn-primary btn-lg btn-block">
         Edit
         <i class="ti-pencil-alt"></i>
       </a>
-       <a href="products/id/edit" type="button" class="btn btn-danger btn-lg btn-block">
+       <a  href="products/{{product.id}}/delete" type="button" class="btn btn-danger btn-lg btn-block">
         Delete 
         <i class="ti-trash"></i>
       </a>

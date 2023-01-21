@@ -127,7 +127,39 @@ VALUES (
       // return response.redirect("back");
     }
   }
-  update({ response, request }) {}
+  async update({ response, request, params }) {
+    try {
+      const post = request.post();
+      const id = params.id;
+      let title = post.title;
+      let sku = post.sku;
+      let material = post.material;
+      let description = post.description;
+      let qty = post.qty;
+      let size = post.size;
+      let img_url = post.img_url;
+      await Database.raw(
+        `
+   UPDATE products
+   SET
+   title = ${sqlString.escape(title)},
+   sku = ${sqlString.escape(sku)},
+   img_url = ${sqlString.escape(img_url)},
+   material = ${sqlString.escape(material)},
+   description = ${sqlString.escape(description)},
+   brand_id = ${parseInt(1)},
+   qty = ${parseInt(qty)},
+   size = ${sqlString.escape(size)},
+   user_id = ${parseInt(1)} 
+   WHERE id = ${id}
+   `
+      );
+
+      return response.redirect(`/admin/products/${id}`);
+    } catch (error) {
+      return response.redirect("back");
+    }
+  }
   delete({ response, request }) {}
 }
 module.exports = ProductController;

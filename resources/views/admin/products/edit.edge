@@ -16,7 +16,7 @@
   <div class="col-12 mt-5">
     <div class="card">
       <div class="card-body">
-        <form action="/admin/products" method="post">
+        <form action="/admin/products/{{product.id}}?_method=PUT" method="post">
           {{ csrfField() }}
           <div class="form-group">
             <label for="example-text-input" class="col-form-label">Title</label>

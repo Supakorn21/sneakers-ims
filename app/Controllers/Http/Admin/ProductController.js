@@ -160,6 +160,28 @@ VALUES (
       return response.redirect("back");
     }
   }
-  delete({ response, request }) {}
+  async delete({ response, request, params }) {
+    try {
+      const post = request.post();
+      const id = params.id;
+      let title = post.title;
+      let sku = post.sku;
+      let material = post.material;
+      let description = post.description;
+      let qty = post.qty;
+      let size = post.size;
+      let img_url = post.img_url;
+      await Database.raw(
+        `
+        DELETE FROM products
+    WHERE id = ${id}
+   `
+      );
+
+      return response.redirect(`/admin/products`);
+    } catch (error) {
+      return response.redirect("back");
+    }
+  }
 }
 module.exports = ProductController;

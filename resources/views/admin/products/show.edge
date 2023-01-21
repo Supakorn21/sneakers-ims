@@ -46,20 +46,17 @@
               </div>
            </div>
         </div>
-        
-        
-      
       </div>
     </div>
   </div>
   <div class="col-md-3 mt-5">
     <div class="card">
       <div class="card-body">
-       <a href="{{product.id}}/edit" type="button" class="btn btn-primary btn-lg btn-block">
+       <a href="/admin/products/{{product.id}}/edit" type="button" class="btn btn-primary btn-lg btn-block">
         Edit
         <i class="ti-pencil-alt"></i>
       </a>
-       <a  href="products/{{product.id}}/delete" type="button" class="btn btn-danger btn-lg btn-block">
+       <a onclick="return confirm('are you sure?')"  href="/admin/products/{{product.id}}/delete" type="button" class="btn btn-danger btn-lg btn-block">
         Delete 
         <i class="ti-trash"></i>
       </a>

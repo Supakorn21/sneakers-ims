@@ -42,11 +42,13 @@ class ProductController {
       let description = post.description;
       let qty = post.qty;
       let size = post.size;
+      let img_url = post.img_url;
       await Database.raw(
         `
    INSERT INTO products (
     title,
     sku,
+    img_url,
     material,
     description,
     brand_id,
@@ -57,6 +59,7 @@ class ProductController {
 VALUES (
     ${sqlString.escape(title)},
     ${sqlString.escape(sku)},
+    ${sqlString.escape(img_url)},
     ${sqlString.escape(material)},
     ${sqlString.escape(description)},
     ${parseInt(1)},

@@ -5,6 +5,7 @@ const Schema = use("Schema");
 
 class AddForeignKeyToProductsSchema extends Schema {
   up() {
+
     this.raw(
       `ALTER TABLE products
       ADD CONSTRAINT fk_brand_id_products
@@ -18,10 +19,12 @@ class AddForeignKeyToProductsSchema extends Schema {
       FOREIGN KEY (user_id) REFERENCES users(id)
       `
     );
+
   }
 
   down() {
     this.raw(`
+
       ALTER TABLE products
       DROP FOREIGN KEY fk_brand_id_products
       `);
@@ -30,6 +33,7 @@ class AddForeignKeyToProductsSchema extends Schema {
       ALTER TABLE products
       DROP FOREIGN KEY fk_user_id_products
       `);
+
   }
 }
 

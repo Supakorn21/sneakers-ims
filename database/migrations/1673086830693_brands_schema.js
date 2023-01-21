@@ -5,6 +5,7 @@ const Schema = use("Schema");
 
 class BrandsSchema extends Schema {
   up() {
+
     this.raw(
       `CREATE TABLE brands(
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -14,6 +15,7 @@ class BrandsSchema extends Schema {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)`
     );
+
   }
 
   down() {

@@ -5,6 +5,7 @@ const Schema = use("Schema");
 
 class CreateOrdersSchema extends Schema {
   up() {
+
     this.raw(
       `CREATE TABLE orders(
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -21,6 +22,7 @@ class CreateOrdersSchema extends Schema {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )`
     );
+
   }
 
   down() {

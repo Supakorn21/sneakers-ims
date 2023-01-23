@@ -22,7 +22,7 @@
             <thead class="text-uppercase">
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Title</th>
+                <th scope="col">Company</th>
                 <th scope="col">created by</th>
                 <th scope="col">Options</th>
                 
@@ -35,10 +35,10 @@
                 <th scope="row">{{brand.id}}</th>
                 <td>
                   <a href="/admin/brands/{{brand.id}}">
-                  {{ brand.title}}
+                 <img src="{{ brand.img_url}}" alt=""> 
                     </a>
                 </td>
-
+                <td>{{brand.user}}</td>
                 <td>
                   <ul class="d-flex justify-content-center">
                     <li class="mr-3">

@@ -134,19 +134,11 @@ VALUES (
   }
   async delete({ response, request, params }) {
     try {
-      const post = request.post();
       const id = params.id;
-      let title = post.title;
-      let sku = post.sku;
-      let material = post.material;
-      let description = post.description;
-      let qty = post.qty;
-      let size = post.size;
-      let img_url = post.img_url;
       await Database.raw(
         `
         DELETE FROM brands
-    WHERE id = ${id}
+        WHERE id = ${id}
    `
       );
 

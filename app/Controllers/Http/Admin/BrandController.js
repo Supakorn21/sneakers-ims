@@ -26,7 +26,7 @@ class BrandController {
             brands
             INNER JOIN users ON brands.user_id = users.id
             ORDER BY
-            created_at ASC
+            brands.title ASC
       `);
       allBrands = allBrands[0];
 
@@ -70,17 +70,13 @@ VALUES (
   async show({ view, response, request, params }) {
     try {
       let brand = await Database.raw(`
-      SELECT brands.id, brands.title,brands.sku,brands.img_url, brands.description,
-      brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      brands.material,brands.qty,brands.size, brands.user_id,
-      brands.created_at
+      SELECT brands.id, brands.title,brands.img_url, brands.description,
+       concat(users.f_name, " ", users.l_name ) as user,
+      brands.user_id,brands.created_at,brands.updated_at
       FROM brands
-      INNER JOIN brands
-      ON brands.brand_id = brands.id
       INNER JOIN users
       ON brands.user_id = users.id
       WHERE brands.id = ${params.id}
-      ORDER BY created_at ASC
       LIMIT 1
       `);
       brand = brand[0][0];

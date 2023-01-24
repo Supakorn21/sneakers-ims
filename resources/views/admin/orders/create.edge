@@ -9,11 +9,14 @@
   </ul>
 </div>
 @endsection 
+
+
 @section('content')
 <div class="row">
   <div class="col-12 mt-5">
     <div class="card">
       <div class="card-body">
+        <div id="ordersForm">
         <form action="/admin/products" method="post">
           {{ csrfField() }}
           <div class="form-group">
@@ -118,9 +121,13 @@
             <button type="sybmit" class="btn btn-primary mb-3">Submit</button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   </div>
-
-  @endsection
 </div>
+@endsection
+
+@section('javascripts')
+  <script src="/js/components/ordersForm.js"></script>
+@endsection 

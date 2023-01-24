@@ -97,10 +97,10 @@
 
             <div class="col-sm-12 col-md-4">
               <label class="col-form-label">Brands</label>
-              <select class="form-control">
-                <option value="1">Nike</option>
-                <option value="2">Adidas</option>
-                <option value="3">Puma</option>
+              <select class="form-control" name="brand_id" >
+                @each(brand in brands)
+                  <option value="{{brand.id}}" {{(brand.id == product.brand_id) ? 'selected="select"' : ''}} >{{brand.title}}</option>
+                @endeach
               </select>
             </div>
           </div>

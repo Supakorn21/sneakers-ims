@@ -33,7 +33,7 @@ class ProductController {
       // return response.redirect("back");
     }
   }
-  async store({ view, response, request }) {
+  async store({ response, request }) {
     try {
       const post = request.post();
       let title = post.title;
@@ -42,6 +42,7 @@ class ProductController {
       let description = post.description;
       let qty = post.qty;
       let size = post.size;
+      let brand_id = post.brand_id;
       let img_url = post.img_url;
       await Database.raw(
         `
@@ -62,7 +63,7 @@ VALUES (
     ${sqlString.escape(img_url)},
     ${sqlString.escape(material)},
     ${sqlString.escape(description)},
-    ${parseInt(1)},
+    ${parseInt(brand_id)},
     ${parseInt(qty)},
     ${sqlString.escape(size)},
     ${parseInt(1)}
@@ -75,8 +76,18 @@ VALUES (
       return response.redirect("back");
     }
   }
-  create({ view, response, request }) {
-    return view.render("admin/products/create");
+  async create({ view, response, request }) {
+    try {
+      let brands = await Database.raw(`
+      SELECT * FROM brands
+      ORDER BY brands.title ASC
+      `);
+      brands = brands[0];
+      return view.render("admin/products/create", { brands });
+    } catch (error) {
+      console.log(error);
+      return response.redirect("back");
+    }
   }
   async show({ view, response, request, params }) {
     try {
@@ -99,7 +110,7 @@ VALUES (
       return view.render("admin/products/show", { product });
     } catch (error) {
       console.log(error);
-      // return response.redirect("back");
+      return response.redirect("back");
     }
   }
   async edit({ view, response, request, params }) {
@@ -107,7 +118,7 @@ VALUES (
       let product = await Database.raw(`
       SELECT products.id, products.title,products.sku,products.img_url, products.description,
       brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      products.material,products.qty,products.size, products.user_id,
+      products.material,products.qty,products.size, products.user_id,products.brand_id,
       products.created_at
       FROM products
       INNER JOIN brands
@@ -121,7 +132,13 @@ VALUES (
 
       product = product[0][0];
 
-      return view.render("admin/products/edit", { product });
+      let brands = await Database.raw(`
+      SELECT * FROM brands
+      ORDER BY brands.title ASC
+      `);
+      brands = brands[0];
+
+      return view.render("admin/products/edit", { product, brands });
     } catch (error) {
       console.log(error);
       // return response.redirect("back");
@@ -137,6 +154,7 @@ VALUES (
       let description = post.description;
       let qty = post.qty;
       let size = post.size;
+      let brand_id = post.brand_id;
       let img_url = post.img_url;
       await Database.raw(
         `
@@ -147,7 +165,7 @@ VALUES (
    img_url = ${sqlString.escape(img_url)},
    material = ${sqlString.escape(material)},
    description = ${sqlString.escape(description)},
-   brand_id = ${parseInt(1)},
+   brand_id = ${parseInt(brand_id)},
    qty = ${parseInt(qty)},
    size = ${sqlString.escape(size)},
    user_id = ${parseInt(1)} 
@@ -162,19 +180,11 @@ VALUES (
   }
   async delete({ response, request, params }) {
     try {
-      const post = request.post();
       const id = params.id;
-      let title = post.title;
-      let sku = post.sku;
-      let material = post.material;
-      let description = post.description;
-      let qty = post.qty;
-      let size = post.size;
-      let img_url = post.img_url;
       await Database.raw(
         `
         DELETE FROM products
-    WHERE id = ${id}
+      WHERE id = ${id}
    `
       );
 

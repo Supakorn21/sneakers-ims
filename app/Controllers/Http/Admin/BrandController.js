@@ -94,13 +94,10 @@ VALUES (
   async edit({ view, response, request, params }) {
     try {
       let brand = await Database.raw(`
-      SELECT brands.id, brands.title,brands.sku,brands.img_url, brands.description,
-      brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      brands.material,brands.qty,brands.size, brands.user_id,
-      brands.created_at
+      SELECT brands.id, brands.title,brands.img_url, brands.description,
+       concat(users.f_name, " ", users.l_name )as user,
+      brands.user_id,brands.created_at,brands.updated_at
       FROM brands
-      INNER JOIN brands
-      ON brands.brand_id = brands.id
       INNER JOIN users
       ON brands.user_id = users.id
       WHERE brands.id = ${params.id}
@@ -121,25 +118,15 @@ VALUES (
       const post = request.post();
       const id = params.id;
       let title = post.title;
-      let sku = post.sku;
-      let material = post.material;
       let description = post.description;
-      let qty = post.qty;
-      let size = post.size;
       let img_url = post.img_url;
       await Database.raw(
         `
-   UPDATE brandsproduct
+   UPDATE brands
    SET
    title = ${sqlString.escape(title)},
-   sku = ${sqlString.escape(sku)},
    img_url = ${sqlString.escape(img_url)},
-   material = ${sqlString.escape(material)},
-   description = ${sqlString.escape(description)},
-   brand_id = ${parseInt(1)},
-   qty = ${parseInt(qty)},
-   size = ${sqlString.escape(size)},
-   user_id = ${parseInt(1)} 
+   description = ${sqlString.escape(description)}
    WHERE id = ${id}
    `
       );

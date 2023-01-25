@@ -12,38 +12,41 @@
 
 
 @section('content')
-<div class="row">
+<div id="orders-create-page" class="row">
   <div class="col-12 mt-5">
     <div class="card">
       <div class="card-body">
-        <div id="ordersForm">
+        <div id="ordersForm"></div>
         <form action="/admin/products" method="post">
           {{ csrfField() }}
-          <div class="form-group">
-            <label for="example-text-input" class="col-form-label">Title</label>
-            <input
-              name="title"
-              class="form-control"
-              type="text"
-              value=""
-              id="example-text-input"
-            />
+          <div class="row form-group">
+              <div class="col-sm-12 col-md-6">
+                    <label for="example-text-input" class="col-form-label">First Name</label>
+                    <input
+                      name="f_name"
+                      class="form-control"
+                      type="text"
+                      value=""
+                      id="example-text-input"
+                    />
+              </div>
+              <div class="col-sm-12 col-md-6">
+                  <label for="example-text-input" class="col-form-label">Last Name</label>
+                  <input
+                    name="l_name"
+                    class="form-control"
+                    type="text"
+                    value=""
+                    id="example-text-input"
+                  />
+              </div>
           </div>
-          <div class="form-group">
-            <label for="example-text-input" class="col-form-label">Image URL</label>
-            <input
-              name="img_url"
-              class="form-control"
-              type="text"
-              value=""
-              id="example-text-input"
-            />
-          </div>
+         
           <div class="form-group row">
             <div class="col-sm-12 col-md-6">
-              <label for="example-text-input" class="col-form-label">Sku</label>
+              <label for="example-text-input" class="col-form-label">Address</label>
               <input
-                name="sku"
+                name="address"
                 class="form-control"
                 type="text"
                 value=""
@@ -52,10 +55,10 @@
             </div>
             <div class="col-sm-12 col-md-6">
               <label for="example-text-input" class="col-form-label"
-                >Material</label
+                >Address 2</label
               >
               <input
-                name="material"
+                name="address_2"
                 class="form-control"
                 type="text"
                 value=""
@@ -64,23 +67,23 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-3">
               <label for="example-text-input" class="col-form-label"
-                >Quantity</label
+                >City</label
               >
               <input
-                name="qty"
+                name="city"
                 class="form-control"
                 type="text"
                 value=""
                 id="example-text-input"
               />
             </div>
-                 <div class="col-sm-12 col-md-4">
+                 <div class="col-sm-12 col-md-3">
               <label for="example-text-input" class="col-form-label"
-                >Size</label
+                >State</label
               >
-              <select name="size" class="form-control">
+              <select name="state" class="form-control">
                 <option value="7">7</option>
                 <option value="7.5">7.5</option>
                 <option value="8">8</option>
@@ -96,32 +99,62 @@
             </div>
             
 
-            <div class="col-sm-12 col-md-4">
-              <label class="col-form-label">Brands</label>
+            <div class="col-sm-12 col-md-3">
+              <label class="col-form-label">Country</label>
               <select class="form-control" name="brand_id">
                  @each(brand in brands)
                   <option value="{{brand.id}}" {{(brand.id == product.brand_id) ? 'selected="select"' : ''}} >{{brand.title}}</option>
                 @endeach
               </select>
             </div>
+              <div class="col-sm-12 col-md-3">
+              <label class="col-form-label">Payment Type</label>
+              <select class="form-control" name="payment_type">
+                 @each(brand in brands)
+                  <option value="{{brand.id}}" {{(brand.id == product.brand_id) ? 'selected="select"' : ''}} >{{brand.title}}</option>
+                @endeach
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="example-text-input" class="col-form-label"
-              >Description</label
-            >
-            <textarea
-              name="description"
-              class="form-control"
-              type="text"
-              value=""
-              id="example-text-input"
-            ></textarea>
+         <div class="row order-items">
+          <div class="col-md-12">
+            <h2>Order Items</h2>
           </div>
+          <div class="col-md-3">
+                <div class="item-box">
+                      <div class="item-img" style="background: url('https://cdn-images.farfetch-contents.com/17/35/40/49/17354049_36243389_480.jpg')">
+                          <div class="item-delete">
+                              <i class="ti-close"></i>
+                          </div>
+                      </div>
+                      <div class="title">
+                        Sneaker Title
+                      </div>
+                      <div class="quantity">
+                            <input
+                            name="quantity"
+                            class="form-control"
+                            type="text"
+                            value="3"
+                            id="example-text-input"
+                            />
+                      </div>
+              </div>
+          </div>
+           <div class="col-md-3">
+                <div class="item-box">
+                    <div class="add-item-button">
+                      <span>+</span>
+                      Add New Item
+                    </div>
+              </div>
+          </div>
+         </div>
           <div class="form-group">
             <button type="sybmit" class="btn btn-primary mb-3">Submit</button>
           </div>
         </form>
-        </div>
+   
       </div>
     </div>
   </div>

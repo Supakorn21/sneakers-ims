@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import update from "react-addons-update";
+var UsaStates = require("usa-states").UsaStates;
+const countries = require("country-list");
 
 class Layout extends Component {
   constructor() {
@@ -13,12 +15,13 @@ class Layout extends Component {
         address_2: "",
         city: "",
         state: "NY",
-        country: "USA",
+        country: "US",
         payment_type: "paypal",
         zipcode: "",
       },
     };
   }
+
   change = (e) => {
     let name = e.target.name;
     let value =
@@ -36,8 +39,31 @@ class Layout extends Component {
       console.log(this.state.form);
     });
   };
+
+  showStates = () => {
+    var usStates = new UsaStates();
+
+    return usStates.states.map((item, index) => (
+      <option key={index} value={item.abbreviation}>
+        {item.name}
+      </option>
+    ));
+  };
+
+  showCountries = () => {
+    var allCountries = countries.getData();
+
+    return allCountries.map((item) => (
+      <option key={item.code} value={item.code}>
+        {item.name}
+      </option>
+    ));
+  };
+
   clickedBtn = () => {};
+
   async test() {}
+
   render() {
     return (
       <form action="/admin/products" method="post">
@@ -122,15 +148,7 @@ class Layout extends Component {
               value={this.state.form.state}
               onChange={this.change}
             >
-              <option value="7">7</option>
-              <option value="7.5">7.5</option>
-              <option value="8">8</option>
-              <option value="8.5">8.5</option>
-              <option value="9">9</option>
-              <option value="9.5">9.5</option>
-              <option value="10">10</option>
-              <option value="10.5">10.5</option>
-              <option value="11">11</option>
+              {this.showStates()}
             </select>
           </div>
 
@@ -142,7 +160,8 @@ class Layout extends Component {
               onChange={this.change}
               name="country"
             >
-              <option value="Thailand">Country</option>
+              {this.showCountries()}
+              {/* <option value="Thailand">Country</option> */}
             </select>
           </div>
         </div>
@@ -167,6 +186,7 @@ class Layout extends Component {
               name="payment_type"
             >
               <option value="paypal">Paypal</option>
+              <option value="credit_card">Credit Card</option>
             </select>
           </div>
         </div>

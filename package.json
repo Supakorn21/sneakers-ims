@@ -36,6 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "browser-sync": "^2.18.8",
+    "country-list": "^2.3.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
@@ -60,6 +61,7 @@
     "sqlstring": "^2.3.3",
     "standard": "^10.0.2",
     "string": "^3.3.3",
+    "usa-states": "0.0.6",
     "webpack": "^2.5.1",
     "webpack-stream": "^3.2.0"
   },

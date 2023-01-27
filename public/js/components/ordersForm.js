@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 236:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,7 +16,7 @@ var _reactDom = __webpack_require__(100);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactAddonsUpdate = __webpack_require__(232);
+var _reactAddonsUpdate = __webpack_require__(233);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
@@ -31,6 +31,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UsaStates = __webpack_require__(235).UsaStates;
+var countries = __webpack_require__(232);
 
 var Layout = function (_Component) {
   _inherits(Layout, _Component);
@@ -55,6 +58,30 @@ var Layout = function (_Component) {
       });
     };
 
+    _this.showStates = function () {
+      var usStates = new UsaStates();
+
+      return usStates.states.map(function (item, index) {
+        return _react2.default.createElement(
+          "option",
+          { key: index, value: item.abbreviation },
+          item.name
+        );
+      });
+    };
+
+    _this.showCountries = function () {
+      var allCountries = countries.getData();
+
+      return allCountries.map(function (item) {
+        return _react2.default.createElement(
+          "option",
+          { key: item.code, value: item.code },
+          item.name
+        );
+      });
+    };
+
     _this.clickedBtn = function () {};
 
     _this.state = {
@@ -65,7 +92,7 @@ var Layout = function (_Component) {
         address_2: "",
         city: "",
         state: "NY",
-        country: "USA",
+        country: "US",
         payment_type: "paypal",
         zipcode: ""
       }
@@ -212,51 +239,7 @@ var Layout = function (_Component) {
                 value: this.state.form.state,
                 onChange: this.change
               },
-              _react2.default.createElement(
-                "option",
-                { value: "7" },
-                "7"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "7.5" },
-                "7.5"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "8" },
-                "8"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "8.5" },
-                "8.5"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "9" },
-                "9"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "9.5" },
-                "9.5"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "10" },
-                "10"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "10.5" },
-                "10.5"
-              ),
-              _react2.default.createElement(
-                "option",
-                { value: "11" },
-                "11"
-              )
+              this.showStates()
             )
           ),
           _react2.default.createElement(
@@ -275,11 +258,7 @@ var Layout = function (_Component) {
                 onChange: this.change,
                 name: "country"
               },
-              _react2.default.createElement(
-                "option",
-                { value: "Thailand" },
-                "Country"
-              )
+              this.showCountries()
             )
           )
         ),
@@ -323,6 +302,11 @@ var Layout = function (_Component) {
                 "option",
                 { value: "paypal" },
                 "Paypal"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "credit_card" },
+                "Credit Card"
               )
             )
           )
@@ -488,4 +472,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), ordersFor
 
 /***/ })
 
-},[236]);
+},[238]);

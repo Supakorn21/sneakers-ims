@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 235:
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,9 +16,15 @@ var _reactDom = __webpack_require__(100);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _reactAddonsUpdate = __webpack_require__(232);
+
+var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -34,10 +40,35 @@ var Layout = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
+    _this.change = function (e) {
+      var name = e.target.name;
+      var value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+      var currentState = _this.state;
+      var newState = (0, _reactAddonsUpdate2.default)(currentState, {
+        form: {
+          $merge: _defineProperty({}, name, value)
+        }
+      });
+
+      _this.setState(newState, function () {
+        console.log(_this.state.form);
+      });
+    };
+
     _this.clickedBtn = function () {};
 
     _this.state = {
-      name: "Joe"
+      form: {
+        f_name: "",
+        l_name: "",
+        address: "",
+        address_2: "",
+        city: "",
+        state: "NY",
+        country: "USA",
+        payment_type: "paypal",
+        zipcode: ""
+      }
     };
     return _this;
   }
@@ -84,7 +115,8 @@ var Layout = function (_Component) {
               name: "f_name",
               className: "form-control",
               type: "text",
-              value: "",
+              value: this.state.form.f_name,
+              onChange: this.change,
               id: "example-text-input"
             })
           ),
@@ -100,7 +132,8 @@ var Layout = function (_Component) {
               name: "l_name",
               className: "form-control",
               type: "text",
-              value: "",
+              value: this.state.form.l_name,
+              onChange: this.change,
               id: "example-text-input"
             })
           )
@@ -120,7 +153,8 @@ var Layout = function (_Component) {
               name: "address",
               className: "form-control",
               type: "text",
-              value: "",
+              value: this.state.form.address,
+              onChange: this.change,
               id: "example-text-input"
             })
           ),
@@ -136,7 +170,8 @@ var Layout = function (_Component) {
               name: "address_2",
               className: "form-control",
               type: "text",
-              value: "",
+              value: this.state.form.address_2,
+              onChange: this.change,
               id: "example-text-input"
             })
           )
@@ -156,7 +191,8 @@ var Layout = function (_Component) {
               name: "city",
               className: "form-control",
               type: "text",
-              value: "",
+              value: this.state.form.city,
+              onChange: this.change,
               id: "example-text-input"
             })
           ),
@@ -170,7 +206,12 @@ var Layout = function (_Component) {
             ),
             _react2.default.createElement(
               "select",
-              { name: "state", className: "form-control" },
+              {
+                name: "state",
+                className: "form-control",
+                value: this.state.form.state,
+                onChange: this.change
+              },
               _react2.default.createElement(
                 "option",
                 { value: "7" },
@@ -218,10 +259,9 @@ var Layout = function (_Component) {
               )
             )
           ),
-          "option",
           _react2.default.createElement(
             "div",
-            { className: "col-sm-12 col-md-3" },
+            { className: "col-sm-12 col-md-6" },
             _react2.default.createElement(
               "label",
               { className: "col-form-label" },
@@ -229,17 +269,43 @@ var Layout = function (_Component) {
             ),
             _react2.default.createElement(
               "select",
-              { className: "form-control", name: "country" },
+              {
+                className: "form-control",
+                value: this.state.form.country,
+                onChange: this.change,
+                name: "country"
+              },
               _react2.default.createElement(
                 "option",
                 { value: "Thailand" },
                 "Country"
               )
             )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "form-group row" },
+          _react2.default.createElement(
+            "div",
+            { className: "col-sm-12 col-md-6" },
+            _react2.default.createElement(
+              "label",
+              { className: "col-form-label" },
+              "Zipcode"
+            ),
+            _react2.default.createElement("input", {
+              name: "zipcode",
+              className: "form-control",
+              type: "text",
+              value: this.state.form.zipcode,
+              onChange: this.change,
+              id: "example-text-input"
+            })
           ),
           _react2.default.createElement(
             "div",
-            { className: "col-sm-12 col-md-3" },
+            { className: "col-sm-12 col-md-6" },
             _react2.default.createElement(
               "label",
               { className: "col-form-label" },
@@ -247,7 +313,12 @@ var Layout = function (_Component) {
             ),
             _react2.default.createElement(
               "select",
-              { className: "form-control", name: "payment_type" },
+              {
+                className: "form-control",
+                value: this.state.form.payment_type,
+                onChange: this.change,
+                name: "payment_type"
+              },
               _react2.default.createElement(
                 "option",
                 { value: "paypal" },
@@ -417,4 +488,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), ordersFor
 
 /***/ })
 
-},[235]);
+},[236]);

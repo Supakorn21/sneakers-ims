@@ -1,13 +1,41 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import update from "react-addons-update";
 
 class Layout extends Component {
   constructor() {
     super();
     this.state = {
-      name: "Joe",
+      form: {
+        f_name: "",
+        l_name: "",
+        address: "",
+        address_2: "",
+        city: "",
+        state: "NY",
+        country: "USA",
+        payment_type: "paypal",
+        zipcode: "",
+      },
     };
   }
+  change = (e) => {
+    let name = e.target.name;
+    let value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    let currentState = this.state;
+    let newState = update(currentState, {
+      form: {
+        $merge: {
+          [name]: value,
+        },
+      },
+    });
+
+    this.setState(newState, () => {
+      console.log(this.state.form);
+    });
+  };
   clickedBtn = () => {};
   async test() {}
   render() {
@@ -22,7 +50,8 @@ class Layout extends Component {
               name="f_name"
               className="form-control"
               type="text"
-              value=""
+              value={this.state.form.f_name}
+              onChange={this.change}
               id="example-text-input"
             />
           </div>
@@ -34,7 +63,8 @@ class Layout extends Component {
               name="l_name"
               className="form-control"
               type="text"
-              value=""
+              value={this.state.form.l_name}
+              onChange={this.change}
               id="example-text-input"
             />
           </div>
@@ -49,7 +79,8 @@ class Layout extends Component {
               name="address"
               className="form-control"
               type="text"
-              value=""
+              value={this.state.form.address}
+              onChange={this.change}
               id="example-text-input"
             />
           </div>
@@ -61,7 +92,8 @@ class Layout extends Component {
               name="address_2"
               className="form-control"
               type="text"
-              value=""
+              value={this.state.form.address_2}
+              onChange={this.change}
               id="example-text-input"
             />
           </div>
@@ -75,7 +107,8 @@ class Layout extends Component {
               name="city"
               className="form-control"
               type="text"
-              value=""
+              value={this.state.form.city}
+              onChange={this.change}
               id="example-text-input"
             />
           </div>
@@ -83,7 +116,12 @@ class Layout extends Component {
             <label htmlFor="example-text-input" className="col-form-label">
               State
             </label>
-            <select name="state" className="form-control">
+            <select
+              name="state"
+              className="form-control"
+              value={this.state.form.state}
+              onChange={this.change}
+            >
               <option value="7">7</option>
               <option value="7.5">7.5</option>
               <option value="8">8</option>
@@ -95,16 +133,39 @@ class Layout extends Component {
               <option value="11">11</option>
             </select>
           </div>
-          option
-          <div className="col-sm-12 col-md-3">
+
+          <div className="col-sm-12 col-md-6">
             <label className="col-form-label">Country</label>
-            <select className="form-control" name="country">
+            <select
+              className="form-control"
+              value={this.state.form.country}
+              onChange={this.change}
+              name="country"
+            >
               <option value="Thailand">Country</option>
             </select>
           </div>
-          <div className="col-sm-12 col-md-3">
+        </div>
+        <div className="form-group row">
+          <div className="col-sm-12 col-md-6">
+            <label className="col-form-label">Zipcode</label>
+            <input
+              name="zipcode"
+              className="form-control"
+              type="text"
+              value={this.state.form.zipcode}
+              onChange={this.change}
+              id="example-text-input"
+            />
+          </div>
+          <div className="col-sm-12 col-md-6">
             <label className="col-form-label">Payment Type</label>
-            <select className="form-control" name="payment_type">
+            <select
+              className="form-control"
+              value={this.state.form.payment_type}
+              onChange={this.change}
+              name="payment_type"
+            >
               <option value="paypal">Paypal</option>
             </select>
           </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import update from "react-addons-update";
+import Popup from "./Popup";
 var UsaStates = require("usa-states").UsaStates;
 const countries = require("country-list");
 
@@ -19,6 +20,7 @@ class Layout extends Component {
         payment_type: "paypal",
         zipcode: "",
       },
+      showPopup: false,
     };
   }
 
@@ -60,7 +62,11 @@ class Layout extends Component {
     ));
   };
 
-  clickedBtn = () => {};
+  addNewBtn = () => {
+    this.setState({
+      showPopup: !this.state.showPopup,
+    });
+  };
 
   async test() {}
 
@@ -216,35 +222,14 @@ class Layout extends Component {
           </div>
           <div className="col-md-3">
             <div className="item-box">
-              <div className="add-item-button">
+              <div onClick={this.addNewBtn} className="add-item-button">
                 <span>+</span>
                 Add New Item
               </div>
             </div>
           </div>
-          <div className="popup">
-            <div className="container-box">
-              <div className="row">
-                <div className="col-md-12">
-                  <h2>Add Item to Order</h2>
-                  <div className="form-group">
-                    <label htmlFor="">Product</label>
-                    <select className="form-control" name="product">
-                      <option value="0">title / quantity</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="">Quantity</label>
-                    <select className="form-control" name="qty">
-                      <option value="0">1</option>
-                    </select>
-                  </div>
-                  <div className="add-btn btn btn-primary mb-3">Save Item</div>
-                  <div className="cancel-btn btn btn-danger mb-3">Cancel</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* popup */}
+          <Popup showPopup={this.state.showPopup} closePopup={this.addNewBtn} />
         </div>
         <div className="form-group">
           <button type="sybmit" className="btn btn-primary mb-3">

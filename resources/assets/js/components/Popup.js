@@ -34,7 +34,6 @@ export default class Popup extends Component {
   };
 
   showProducts = () => {
-    console.log(this.props.allProducts);
     if (this.props.allProducts !== "") {
       return this.props.allProducts.map((item, index) => (
         <option key={item.id} value={item.id}>
@@ -42,6 +41,19 @@ export default class Popup extends Component {
         </option>
       ));
     }
+  };
+
+  clickedSaveItemBtn = () => {
+    let product = this.props.allProducts.filter(
+      (product) => product.id == this.state.form.product
+    );
+    product = product[0];
+    let itemData = {
+      productInfo: product,
+      qtyBuying: this.state.form.qty,
+    };
+    this.props.addItemToList(itemData);
+    this.props.closePopup();
   };
 
   clickedcancelBtn = () => {
@@ -66,8 +78,6 @@ export default class Popup extends Component {
                   name="product"
                 >
                   {this.showProducts()}
-
-                  {/* <option value="nike">Nike</option> */}
                 </select>
               </div>
               <div className="form-group">
@@ -80,9 +90,22 @@ export default class Popup extends Component {
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
                 </select>
               </div>
-              <div className="add-btn btn btn-primary mb-3">Save Item</div>
+              <div
+                className="add-btn btn btn-primary mb-3"
+                onClick={this.clickedSaveItemBtn}
+              >
+                Save Item
+              </div>
               <div
                 className="cancel-btn btn btn-danger mb-3"
                 onClick={this.clickedcancelBtn}

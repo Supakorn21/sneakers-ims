@@ -22,9 +22,22 @@ class Layout extends Component {
         zipcode: "",
       },
       showPopup: false,
-      allProducts: "",
+      allProducts: [],
+      allItems: [],
     };
   }
+
+  addItemToList = (item) => {
+    let allItems = this.state.allItems;
+    let oldState = this.state;
+    let newState = update(oldState, {
+      allItems: { $push: [item] },
+    });
+    this.setState(newState, () => {
+      console.log("New state");
+      console.log(this.state);
+    });
+  };
 
   componentWillMount() {
     this.getAllProducts();
@@ -37,7 +50,7 @@ class Layout extends Component {
       console.log(allProducts);
       this.setState(
         {
-          allProducts: allProducts,
+          allProducts,
         },
         () => console.log(this.state)
       );
@@ -266,6 +279,7 @@ class Layout extends Component {
             showPopup={this.state.showPopup}
             closePopup={this.addNewBtn}
             allProducts={this.state.allProducts}
+            addItemToList={this.addItemToList}
           />
         </div>
         <div className="form-group">

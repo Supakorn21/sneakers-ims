@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 234:
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12,15 +12,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(76);
+var _react = __webpack_require__(78);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(77);
+var _reactDom = __webpack_require__(79);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactAddonsUpdate = __webpack_require__(151);
+var _reactAddonsUpdate = __webpack_require__(153);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
@@ -36,8 +36,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UsaStates = __webpack_require__(153).UsaStates;
-var countries = __webpack_require__(150);
+var UsaStates = __webpack_require__(155).UsaStates;
+var countries = __webpack_require__(152);
 
 var Popup = function (_Component) {
   _inherits(Popup, _Component);
@@ -60,6 +60,19 @@ var Popup = function (_Component) {
       _this.setState(newState, function () {
         console.log(_this.state.form);
       });
+    };
+
+    _this.showProducts = function () {
+      console.log(_this.props.allProducts);
+      if (_this.props.allProducts !== "") {
+        return _this.props.allProducts.map(function (item, index) {
+          return _react2.default.createElement(
+            "option",
+            { key: item.id, value: item.id },
+            item.title
+          );
+        });
+      }
     };
 
     _this.clickedcancelBtn = function () {
@@ -132,16 +145,7 @@ var Popup = function (_Component) {
                     onChange: this.change,
                     name: "product"
                   },
-                  _react2.default.createElement(
-                    "option",
-                    { value: "adidas" },
-                    "adidas"
-                  ),
-                  _react2.default.createElement(
-                    "option",
-                    { value: "nike" },
-                    "Nike"
-                  )
+                  this.showProducts()
                 )
               ),
               _react2.default.createElement(
@@ -199,7 +203,7 @@ exports.default = Popup;
 
 /***/ }),
 
-/***/ 239:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -207,27 +211,31 @@ exports.default = Popup;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(76);
+var _react = __webpack_require__(78);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(77);
+var _reactDom = __webpack_require__(79);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactAddonsUpdate = __webpack_require__(151);
+var _reactAddonsUpdate = __webpack_require__(153);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
-var _Popup = __webpack_require__(234);
+var _Popup = __webpack_require__(242);
 
 var _Popup2 = _interopRequireDefault(_Popup);
 
+var _axios = __webpack_require__(241);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -235,16 +243,55 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UsaStates = __webpack_require__(153).UsaStates;
-var countries = __webpack_require__(150);
+var UsaStates = __webpack_require__(155).UsaStates;
+var countries = __webpack_require__(152);
 
 var Layout = function (_Component) {
   _inherits(Layout, _Component);
 
   function Layout() {
+    var _this2 = this;
+
     _classCallCheck(this, Layout);
 
     var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
+
+    _this.getAllProducts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var allProducts;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return _axios2.default.get("/api/admin/products");
+
+            case 3:
+              allProducts = _context.sent;
+
+              allProducts = allProducts.data;
+              console.log(allProducts);
+              _this.setState({
+                allProducts: allProducts
+              }, function () {
+                return console.log(_this.state);
+              });
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
+
+              console.log(_context.t0);
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, _this2, [[0, 9]]);
+    }));
 
     _this.change = function (e) {
       var name = e.target.name;
@@ -303,28 +350,34 @@ var Layout = function (_Component) {
         payment_type: "paypal",
         zipcode: ""
       },
-      showPopup: false
+      showPopup: false,
+      allProducts: ""
     };
     return _this;
   }
 
   _createClass(Layout, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      this.getAllProducts();
+    }
+  }, {
     key: "test",
     value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function test() {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       }
 
       return test;
@@ -590,7 +643,11 @@ var Layout = function (_Component) {
               )
             )
           ),
-          _react2.default.createElement(_Popup2.default, { showPopup: this.state.showPopup, closePopup: this.addNewBtn })
+          _react2.default.createElement(_Popup2.default, {
+            showPopup: this.state.showPopup,
+            closePopup: this.addNewBtn,
+            allProducts: this.state.allProducts
+          })
         ),
         _react2.default.createElement(
           "div",
@@ -614,4 +671,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), ordersFor
 
 /***/ })
 
-},[239]);
+},[264]);

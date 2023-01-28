@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import update from "react-addons-update";
 import Popup from "./Popup";
+import axios from "axios";
 var UsaStates = require("usa-states").UsaStates;
 const countries = require("country-list");
 
@@ -21,8 +22,40 @@ class Layout extends Component {
         zipcode: "",
       },
       showPopup: false,
+      allProducts: "",
     };
   }
+
+  componentWillMount() {
+    this.getAllProducts();
+  }
+
+  getAllProducts = async () => {
+    try {
+      let allProducts = await axios.get("/api/admin/products");
+      allProducts = allProducts.data;
+      console.log(allProducts);
+      this.setState(
+        {
+          allProducts: allProducts,
+        },
+        () => console.log(this.state)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    // .then(function (response) {
+    //   // handle success
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+    // .finally(function () {
+    //   // always executed
+    // });
+  };
 
   change = (e) => {
     let name = e.target.name;
@@ -229,7 +262,11 @@ class Layout extends Component {
             </div>
           </div>
           {/* popup */}
-          <Popup showPopup={this.state.showPopup} closePopup={this.addNewBtn} />
+          <Popup
+            showPopup={this.state.showPopup}
+            closePopup={this.addNewBtn}
+            allProducts={this.state.allProducts}
+          />
         </div>
         <div className="form-group">
           <button type="sybmit" className="btn btn-primary mb-3">

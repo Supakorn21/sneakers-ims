@@ -33,6 +33,17 @@ export default class Popup extends Component {
     });
   };
 
+  showProducts = () => {
+    console.log(this.props.allProducts);
+    if (this.props.allProducts !== "") {
+      return this.props.allProducts.map((item, index) => (
+        <option key={item.id} value={item.id}>
+          {item.title}
+        </option>
+      ));
+    }
+  };
+
   clickedcancelBtn = () => {
     this.props.closePopup();
   };
@@ -54,8 +65,9 @@ export default class Popup extends Component {
                   onChange={this.change}
                   name="product"
                 >
-                  <option value="adidas">adidas</option>
-                  <option value="nike">Nike</option>
+                  {this.showProducts()}
+
+                  {/* <option value="nike">Nike</option> */}
                 </select>
               </div>
               <div className="form-group">

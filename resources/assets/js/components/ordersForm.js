@@ -140,6 +140,20 @@ class Layout extends Component {
     });
   };
 
+  submitForm = async () => {
+    try {
+      let submit = await axios.post("/api/admin/products", {
+        form: this.state.form,
+        allItems: this.state.allItems,
+      });
+      console.log(submit);
+    } catch (error) {
+      console.log("====ERROR SUBMITTING FORM========");
+      console.log(error);
+      console.log("====ERROR========");
+    }
+  };
+
   async test() {}
 
   render() {
@@ -292,9 +306,9 @@ class Layout extends Component {
           />
         </div>
         <div className="form-group">
-          <button type="sybmit" className="btn btn-primary mb-3">
+          <div onClick={this.submitForm} className="btn btn-primary mb-3">
             Submit
-          </button>
+          </div>
         </div>
       </form>
     );

@@ -469,6 +469,42 @@ var Layout = function (_Component) {
       });
     };
 
+    _this.submitForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+      var submit;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return _axios2.default.post("/api/admin/products", {
+                form: _this.state.form,
+                allItems: _this.state.allItems
+              });
+
+            case 3:
+              submit = _context2.sent;
+
+              console.log(submit);
+              _context2.next = 12;
+              break;
+
+            case 7:
+              _context2.prev = 7;
+              _context2.t0 = _context2["catch"](0);
+
+              console.log("====ERROR SUBMITTING FORM========");
+              console.log(_context2.t0);
+              console.log("====ERROR========");
+
+            case 12:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, _this2, [[0, 7]]);
+    }));
+
     _this.state = {
       form: {
         f_name: "",
@@ -496,20 +532,20 @@ var Layout = function (_Component) {
   }, {
     key: "test",
     value: function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function test() {
-        return _ref2.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       }
 
       return test;
@@ -746,8 +782,8 @@ var Layout = function (_Component) {
           "div",
           { className: "form-group" },
           _react2.default.createElement(
-            "button",
-            { type: "sybmit", className: "btn btn-primary mb-3" },
+            "div",
+            { onClick: this.submitForm, className: "btn btn-primary mb-3" },
             "Submit"
           )
         )

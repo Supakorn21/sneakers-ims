@@ -31,6 +31,52 @@ class ProductController {
       // return response.redirect("back");
     }
   }
+
+  async store({ response, request }) {
+    try {
+      const post = request.post();
+      let title = post.title;
+      let sku = post.sku;
+      let material = post.material;
+      let description = post.description;
+      let qty = post.qty;
+      let size = post.size;
+      let brand_id = post.brand_id;
+      let img_url = post.img_url;
+      //       await Database.raw(
+      //         `
+      //    INSERT INTO products (
+      //     title,
+      //     sku,
+      //     img_url,
+      //     material,
+      //     description,
+      //     brand_id,
+      //     qty,
+      //     size,
+      //     user_id
+      //   )
+      // VALUES (
+      //     ${sqlString.escape(title)},
+      //     ${sqlString.escape(sku)},
+      //     ${sqlString.escape(img_url)},
+      //     ${sqlString.escape(material)},
+      //     ${sqlString.escape(description)},
+      //     ${parseInt(brand_id)},
+      //     ${parseInt(qty)},
+      //     ${sqlString.escape(size)},
+      //     ${parseInt(1)}
+      //   )
+      //     `
+      //       );
+
+      return { message: "Receive data successfully", post };
+
+      return response.redirect("/admin/products");
+    } catch (error) {
+      return response.redirect("back");
+    }
+  }
 }
 
 module.exports = ProductController;

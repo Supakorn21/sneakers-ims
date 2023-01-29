@@ -10,6 +10,7 @@ export default class Popup extends Component {
     this.state = {
       form: {
         product: "nike",
+        productQty: 0,
         qty: "1",
       },
     };
@@ -17,20 +18,37 @@ export default class Popup extends Component {
 
   change = (e) => {
     let name = e.target.name;
-    let value =
-      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    let value = e.target.type == "checkbox" ? e.target.checked : e.target.value;
     let currentState = this.state;
-    let newState = update(currentState, {
-      form: {
-        $merge: {
-          [name]: value,
+    let newState = "";
+    if (name == "product" && value != "none") {
+      let productQty = this.props.allProducts.filter(
+        (item) => item.id == value
+      );
+      productQty = productQty[0].qty;
+      console.log(productQty);
+      newState = update(
+        currentState,
+        {
+          form: {
+            $merge: {
+              [name]: value,
+              productQty: productQty,
+            },
+          },
         },
-      },
-    });
-
-    this.setState(newState, () => {
-      console.log(this.state.form);
-    });
+        () => console.log(this.state)
+      );
+    } else {
+      newState = update(currentState, {
+        form: {
+          $merge: {
+            [name]: value,
+          },
+        },
+      });
+    }
+    this.setState(newState, () => console.log(this.state));
   };
 
   showProducts = () => {
@@ -40,6 +58,37 @@ export default class Popup extends Component {
           {item.title}
         </option>
       ));
+    }
+  };
+
+  showQty = () => {
+    let options = [];
+    let number = 0;
+    if (this.state.form.productQty > 10) {
+      number = 10;
+    } else {
+      number = this.state.form.productQty;
+    }
+
+    if (
+      this.state.form.productQty !== 0 ||
+      this.state.form.productQty != "none"
+    ) {
+      for (let i = 1; i <= number; i++) {
+        options.push(i);
+      }
+
+      return options.map((i) => (
+        <option key={i} value={`${i}`}>
+          {i}
+        </option>
+      ));
+    } else {
+      return (
+        <option key={`no value`} value={`none`}>
+          Please choose a product that's available
+        </option>
+      );
     }
   };
 
@@ -89,16 +138,7 @@ export default class Popup extends Component {
                   onChange={this.change}
                   name="qty"
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                  {this.showQty()}
                 </select>
               </div>
               <div

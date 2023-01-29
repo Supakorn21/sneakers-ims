@@ -70,8 +70,15 @@ class Layout extends Component {
   };
 
   showAllItems = () => {
+    // Prevent the error that notify the same item already existed function
+    let randomKey = () => {
+      let randomNumber = "_" + Math.random().toString(36).substring(2, 9);
+      randomNumber += 3;
+      return randomNumber;
+    };
+
     return this.state.allItems.map((item, index) => (
-      <div className="col-md-3" key={item.productInfo.id}>
+      <div className="col-md-3" key={randomKey()}>
         <div className="item-box">
           <div
             className="item-img"

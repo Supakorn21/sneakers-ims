@@ -13,9 +13,9 @@ class ProductController {
       // let size = post.size;
 
       let allProducts = await Database.raw(`
-      SELECT products.id, products.title,products.sku, products.img_url,
+      SELECT products.id, products.title,products.sku, products.description, products.img_url,
       brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      products.material,products.qty,products.size, products.user_id,
+      products.material,products.qty,products.size, products.brand_id , products.user_id,
       products.created_at
       FROM products
       INNER JOIN brands
@@ -65,6 +65,28 @@ class ProductController {
       );
 
       const order_id = order[0].insertId;
+      post.allItems.map(async (item) => {
+        let insertItem = await Database.raw(
+          `
+         INSERT INTO items (title,sku, material, description, brand_id, qty,
+          size, order_id, user_id
+        )
+      VALUES (
+          ${sqlString.escape(item.productInfo.title)},
+          ${sqlString.escape(item.productInfo.sku)},
+          ${sqlString.escape(item.productInfo.material)},
+          ${sqlString.escape(item.productInfo.description)},
+          ${sqlString.escape(item.productInfo.brand_id)},
+          ${sqlString.escape(item.qtyBuying)},
+          ${sqlString.escape(item.productInfo.size)},
+          ${sqlString.escape(order_id)},
+          ${parseInt(1)}
+        );
+          `
+        );
+        return insertItem;
+      });
+
       return {
         message: "Receive data successfully",
         post,

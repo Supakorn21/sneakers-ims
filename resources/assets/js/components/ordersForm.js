@@ -57,17 +57,30 @@ class Layout extends Component {
     } catch (error) {
       console.log(error);
     }
-    // .then(function (response) {
-    //   // handle success
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   // handle error
-    //   console.log(error);
-    // })
-    // .finally(function () {
-    //   // always executed
-    // });
+  };
+
+  showAllItems = () => {
+    return this.state.allItems.map((item) => (
+      <div className="col-md-3" key={item.productInfo.id}>
+        <div className="item-box">
+          <div
+            className="item-img"
+            style={{
+              background: `url('${item.productInfo.img_url}')`,
+            }}
+          >
+            <div className="item-delete">
+              <i className="ti-close"></i>
+            </div>
+          </div>
+          <div className="title">{item.productInfo.title}</div>
+          <div className="quantity">
+            <label className="col-form-label">Quantity</label>
+            <h4>{item.qtyBuying}</h4>
+          </div>
+        </div>
+      </div>
+    ));
   };
 
   change = (e) => {
@@ -246,26 +259,9 @@ class Layout extends Component {
           <div className="col-md-12">
             <h2>Order Items</h2>
           </div>
-          <div className="col-md-3">
-            <div className="item-box">
-              <div
-                className="item-img"
-                style={{
-                  background:
-                    "url('https://cdn-images.farfetch-contents.com/17/35/40/49/17354049_36243389_480.jpg')",
-                }}
-              >
-                <div className="item-delete">
-                  <i className="ti-close"></i>
-                </div>
-              </div>
-              <div className="title">Sneaker Title</div>
-              <div className="quantity">
-                <label className="col-form-label">Quantity</label>
-                <h4>4</h4>
-              </div>
-            </div>
-          </div>
+          {/* showAllItems function */}
+          {this.showAllItems()}
+
           <div className="col-md-3">
             <div className="item-box">
               <div onClick={this.addNewBtn} className="add-item-button">

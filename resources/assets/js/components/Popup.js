@@ -77,6 +77,7 @@ export default class Popup extends Component {
                   onChange={this.change}
                   name="product"
                 >
+                  <option value="none">Select A Sneaker</option>
                   {this.showProducts()}
                 </select>
               </div>

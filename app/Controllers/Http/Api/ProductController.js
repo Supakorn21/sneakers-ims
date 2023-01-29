@@ -13,7 +13,7 @@ class ProductController {
       // let size = post.size;
 
       let allProducts = await Database.raw(`
-      SELECT products.id, products.title,products.sku,
+      SELECT products.id, products.title,products.sku, products.img_url,
       brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
       products.material,products.qty,products.size, products.user_id,
       products.created_at

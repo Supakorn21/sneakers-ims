@@ -24,7 +24,7 @@
   width: 200px;
   background-position: center !important;
   background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-size: contain !important;
   margin: 0 auto;
   position: relative;
   margin-bottom: 1rem;

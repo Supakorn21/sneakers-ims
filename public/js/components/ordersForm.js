@@ -157,6 +157,11 @@ var Popup = function (_Component) {
                     onChange: this.change,
                     name: "product"
                   },
+                  _react2.default.createElement(
+                    "option",
+                    { value: "none" },
+                    "Select A Sneaker"
+                  ),
                   this.showProducts()
                 )
               ),
@@ -359,6 +364,52 @@ var Layout = function (_Component) {
         }
       }, _callee, _this2, [[0, 9]]);
     }));
+
+    _this.showAllItems = function () {
+      return _this.state.allItems.map(function (item) {
+        return _react2.default.createElement(
+          "div",
+          { className: "col-md-3", key: item.productInfo.id },
+          _react2.default.createElement(
+            "div",
+            { className: "item-box" },
+            _react2.default.createElement(
+              "div",
+              {
+                className: "item-img",
+                style: {
+                  background: "url('" + item.productInfo.img_url + "')"
+                }
+              },
+              _react2.default.createElement(
+                "div",
+                { className: "item-delete" },
+                _react2.default.createElement("i", { className: "ti-close" })
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "title" },
+              item.productInfo.title
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "quantity" },
+              _react2.default.createElement(
+                "label",
+                { className: "col-form-label" },
+                "Quantity"
+              ),
+              _react2.default.createElement(
+                "h4",
+                null,
+                item.qtyBuying
+              )
+            )
+          )
+        );
+      });
+    };
 
     _this.change = function (e) {
       var name = e.target.name;
@@ -652,47 +703,7 @@ var Layout = function (_Component) {
               "Order Items"
             )
           ),
-          _react2.default.createElement(
-            "div",
-            { className: "col-md-3" },
-            _react2.default.createElement(
-              "div",
-              { className: "item-box" },
-              _react2.default.createElement(
-                "div",
-                {
-                  className: "item-img",
-                  style: {
-                    background: "url('https://cdn-images.farfetch-contents.com/17/35/40/49/17354049_36243389_480.jpg')"
-                  }
-                },
-                _react2.default.createElement(
-                  "div",
-                  { className: "item-delete" },
-                  _react2.default.createElement("i", { className: "ti-close" })
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "title" },
-                "Sneaker Title"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "quantity" },
-                _react2.default.createElement(
-                  "label",
-                  { className: "col-form-label" },
-                  "Quantity"
-                ),
-                _react2.default.createElement(
-                  "h4",
-                  null,
-                  "4"
-                )
-              )
-            )
-          ),
+          this.showAllItems(),
           _react2.default.createElement(
             "div",
             { className: "col-md-3" },

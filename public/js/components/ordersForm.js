@@ -470,39 +470,41 @@ var Layout = function (_Component) {
     };
 
     _this.submitForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var submit;
+      var csrf, submit;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              _context2.next = 3;
+              csrf = document.getElementsByName("_csrf")[0].value;
+              _context2.next = 4;
               return _axios2.default.post("/api/admin/products", {
+                _csrf: csrf,
                 form: _this.state.form,
                 allItems: _this.state.allItems
               });
 
-            case 3:
+            case 4:
               submit = _context2.sent;
 
               console.log(submit);
-              _context2.next = 12;
+              _context2.next = 13;
               break;
 
-            case 7:
-              _context2.prev = 7;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
 
               console.log("====ERROR SUBMITTING FORM========");
               console.log(_context2.t0);
               console.log("====ERROR========");
 
-            case 12:
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, _this2, [[0, 7]]);
+      }, _callee2, _this2, [[0, 8]]);
     }));
 
     _this.state = {

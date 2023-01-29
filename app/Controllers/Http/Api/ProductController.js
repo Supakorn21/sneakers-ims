@@ -35,42 +35,41 @@ class ProductController {
   async store({ response, request }) {
     try {
       const post = request.post();
-      let title = post.title;
-      let sku = post.sku;
-      let material = post.material;
-      let description = post.description;
-      let qty = post.qty;
-      let size = post.size;
-      let brand_id = post.brand_id;
-      let img_url = post.img_url;
-      //       await Database.raw(
-      //         `
-      //    INSERT INTO products (
-      //     title,
-      //     sku,
-      //     img_url,
-      //     material,
-      //     description,
-      //     brand_id,
-      //     qty,
-      //     size,
-      //     user_id
-      //   )
-      // VALUES (
-      //     ${sqlString.escape(title)},
-      //     ${sqlString.escape(sku)},
-      //     ${sqlString.escape(img_url)},
-      //     ${sqlString.escape(material)},
-      //     ${sqlString.escape(description)},
-      //     ${parseInt(brand_id)},
-      //     ${parseInt(qty)},
-      //     ${sqlString.escape(size)},
-      //     ${parseInt(1)}
-      //   )
-      //     `
-      //       );
+      let f_name = post.form.f_name;
+      let l_name = post.form.l_name;
+      let address = post.form.address;
+      let address_2 = post.form.address_2;
+      let city = post.form.city;
+      let state = post.form.state;
+      let country = post.form.country;
+      let payment_type = post.form.payment_type;
+      let user_id = post.form.user_id;
 
-      return { message: "Receive data successfully", post };
+      const order = await Database.raw(
+        `
+         INSERT INTO orders (f_name,l_name, address, address_2, city, state,
+          country, payment_type, user_id
+        )
+      VALUES (
+          ${sqlString.escape(f_name)},
+          ${sqlString.escape(l_name)},
+          ${sqlString.escape(address)},
+          ${sqlString.escape(address_2)},
+          ${sqlString.escape(city)},
+          ${sqlString.escape(state)},
+          ${sqlString.escape(country)},
+          ${sqlString.escape(payment_type)},
+          ${parseInt(1)}
+        );
+          `
+      );
+
+      const order_id = order[0].insertId;
+      return {
+        message: "Receive data successfully",
+        post,
+        order_id: order_id,
+      };
 
       return response.redirect("/admin/products");
     } catch (error) {

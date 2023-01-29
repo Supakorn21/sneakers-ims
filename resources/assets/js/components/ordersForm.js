@@ -142,7 +142,9 @@ class Layout extends Component {
 
   submitForm = async () => {
     try {
+      const csrf = document.getElementsByName("_csrf")[0].value;
       let submit = await axios.post("/api/admin/products", {
+        _csrf: csrf,
         form: this.state.form,
         allItems: this.state.allItems,
       });

@@ -59,8 +59,18 @@ class Layout extends Component {
     }
   };
 
+  removeItem = (index) => {
+    let oldState = this.state;
+    let newState = update(oldState, {
+      allItems: {
+        $splice: [[index, 1]],
+      },
+    });
+    this.setState(newState);
+  };
+
   showAllItems = () => {
-    return this.state.allItems.map((item) => (
+    return this.state.allItems.map((item, index) => (
       <div className="col-md-3" key={item.productInfo.id}>
         <div className="item-box">
           <div
@@ -69,7 +79,10 @@ class Layout extends Component {
               background: `url('${item.productInfo.img_url}')`,
             }}
           >
-            <div className="item-delete">
+            <div
+              className="item-delete"
+              onClick={this.removeItem.bind(null, index)}
+            >
               <i className="ti-close"></i>
             </div>
           </div>

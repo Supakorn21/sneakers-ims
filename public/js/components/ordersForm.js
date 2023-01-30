@@ -476,41 +476,49 @@ var Layout = function (_Component) {
     };
 
     _this.submitForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var csrf, submit;
+      var self, csrf, submit;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
+              self = window;
+              _context2.prev = 1;
               csrf = document.getElementsByName("_csrf")[0].value;
-              _context2.next = 4;
+              _context2.next = 5;
               return _axios2.default.post("/api/admin/products", {
                 _csrf: csrf,
                 form: _this.state.form,
                 allItems: _this.state.allItems
               });
 
-            case 4:
+            case 5:
               submit = _context2.sent;
 
+
+              // checking if data is success then redirect to /admin/orders page
+              if (submit.data.status == "success") {
+                self.location.href = "/admin/orders";
+              } else {
+                alert("\n          Status: " + submit.data.status + " \n\n          Message: " + submit.data.message + " \n\n          Error: " + submit.data.error + " \n\n          ");
+              }
               console.log(submit);
-              _context2.next = 13;
+              _context2.next = 15;
               break;
 
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](0);
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](1);
 
               console.log("====ERROR SUBMITTING FORM========");
               console.log(_context2.t0);
               console.log("====ERROR========");
 
-            case 13:
+            case 15:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, _this2, [[0, 8]]);
+      }, _callee2, _this2, [[1, 10]]);
     }));
 
     _this.state = {

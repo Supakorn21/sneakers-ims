@@ -148,6 +148,7 @@ class Layout extends Component {
   };
 
   submitForm = async () => {
+    var self = window;
     try {
       const csrf = document.getElementsByName("_csrf")[0].value;
       let submit = await axios.post("/api/admin/products", {
@@ -155,6 +156,17 @@ class Layout extends Component {
         form: this.state.form,
         allItems: this.state.allItems,
       });
+
+      // checking if data is success then redirect to /admin/orders page
+      if (submit.data.status == "success") {
+        self.location.href = "/admin/orders";
+      } else {
+        alert(`
+          Status: ${submit.data.status} \n
+          Message: ${submit.data.message} \n
+          Error: ${submit.data.error} \n
+          `);
+      }
       console.log(submit);
     } catch (error) {
       console.log("====ERROR SUBMITTING FORM========");

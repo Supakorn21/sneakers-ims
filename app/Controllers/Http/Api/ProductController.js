@@ -65,7 +65,7 @@ class ProductController {
       );
 
       const order_id = order[0].insertId;
-      post.allItems.map(async (item) => {
+      await post.allItems.map(async (item) => {
         try {
           let insertItem = await Database.raw(
             `
@@ -90,24 +90,31 @@ class ProductController {
             SET qty = qty- ${item.qtyBuying}
            WHERE id = ${item.productInfo.id};
         `);
-          console.log("Success update product");
+          // console.log("Success update product");
 
           return insertItem, updateProduct;
         } catch (error) {
-          console.log("Not Success");
+          // console.log("Not Success");
           console.log(error);
+          return {
+            status: "error",
+            message: "Can't save item or update product",
+            error: error.sqlMessage,
+          };
         }
       });
 
       return {
-        message: "Receive data successfully",
-        post,
-        order_id: order_id,
+        status: "success",
+        message: "Saved Order",
       };
-
-      return response.redirect("/admin/products");
     } catch (error) {
-      return response.redirect("back");
+      console.log(error);
+      return {
+        status: "error",
+        message: "Can't save order",
+        error: error.sqlMessage,
+      };
     }
   }
 }

@@ -66,8 +66,9 @@ class ProductController {
 
       const order_id = order[0].insertId;
       post.allItems.map(async (item) => {
-        let insertItem = await Database.raw(
-          `
+        try {
+          let insertItem = await Database.raw(
+            `
          INSERT INTO items (title,sku, material, description, brand_id, qty,
           size, order_id, user_id
         )
@@ -83,8 +84,19 @@ class ProductController {
           ${parseInt(1)}
         );
           `
-        );
-        return insertItem;
+          );
+          let updateProduct = await Database.raw(`
+           UPDATE products 
+            SET qty = qty- ${item.qtyBuying}
+           WHERE id = ${item.productInfo.id};
+        `);
+          console.log("Success update product");
+
+          return insertItem, updateProduct;
+        } catch (error) {
+          console.log("Not Success");
+          console.log(error);
+        }
       });
 
       return {

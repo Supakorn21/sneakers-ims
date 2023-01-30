@@ -496,7 +496,7 @@ var Layout = function (_Component) {
 
 
               // checking if data is success then redirect to /admin/orders page
-              if (submit.data.status == "success") {
+              if (submit.data.status === "success") {
                 self.location.href = "/admin/orders";
               } else {
                 alert("\n          Status: " + submit.data.status + " \n\n          Message: " + submit.data.message + " \n\n          Error: " + submit.data.error + " \n\n          ");

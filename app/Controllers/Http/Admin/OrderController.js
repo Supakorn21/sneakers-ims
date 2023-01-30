@@ -13,20 +13,23 @@ class OrderController {
       // let qty = post.qty;
       // let size = post.size;
 
-      //   let allorders = await Database.raw(`
-      //   SELECT orders.id, orders.title,orders.sku,
-      //   brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      //   orders.material,orders.qty,orders.size, orders.user_id,
-      //   orders.created_at
-      //   FROM orders
-      //   INNER JOIN brands
-      //   ON orders.brand_id = brands.id
-      //   INNER JOIN users
-      //   ON orders.user_id = users.id ORDER BY created_at ASC
-      //   `);
-      let allorders = "";
+      let allOrders = await Database.raw(`
+       SELECT orders.id, concat(orders.f_name, " ",orders.l_name)
+        as customer, SUM(items.qty) as total_items,
+        SUM(items.price * items.qty) as total_price, 
+        concat(orders.state," ",orders.country) as location, 
+        orders.payment_type,
+        concat(users.f_name, "",users.l_name) as created_by
+        FROM orders
+        INNER JOIN items
+        ON orders.id = items.order_id
+        INNER JOIN users
+        ON orders.user_id = users.id
+        GROUP BY orders.id;
+        `);
+      allOrders = allOrders[0];
 
-      return view.render("admin/orders/all", { allorders });
+      return view.render("admin/orders/all", { allOrders });
     } catch (error) {
       console.log(error);
       // return response.redirect("back");

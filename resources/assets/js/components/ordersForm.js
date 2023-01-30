@@ -158,7 +158,7 @@ class Layout extends Component {
       });
 
       // checking if data is success then redirect to /admin/orders page
-      if (submit.data.status == "success") {
+      if (submit.data.status === "success") {
         self.location.href = "/admin/orders";
       } else {
         alert(`

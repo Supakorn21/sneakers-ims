@@ -120,3 +120,18 @@
   margin: 20px 0;
   cursor: pointer;
 }
+
+/* order show page */
+#orders-show-page .section {
+  margin-bottom: 50px;
+}
+#orders-show-page .section h2 {
+  margin-bottom: 20px;
+}
+#orders-show-page .section label {
+  font-size: 1.2rem;
+}
+#orders-show-page .section label span {
+  font-weight: 700;
+  color: black;
+}

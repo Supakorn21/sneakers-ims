@@ -93,22 +93,23 @@ VALUES (
   }
   async show({ view, response, request, params }) {
     try {
-      let order = await Database.raw(`
-      SELECT orders.id, orders.title,orders.sku,orders.img_url, orders.description,
-      brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      orders.material,orders.qty,orders.size, orders.user_id,
-      orders.created_at
-      FROM orders
-      INNER JOIN brands
-      ON orders.brand_id = brands.id
-      INNER JOIN users
-      ON orders.user_id = users.id
-      WHERE orders.id = ${params.id}
-      ORDER BY created_at ASC
-      LIMIT 1
-      `);
-      order = order[0][0];
+      // let order = await Database.raw(`
+      // SELECT orders.id, orders.title,orders.sku,orders.img_url, orders.description,
+      // brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
+      // orders.material,orders.qty,orders.size, orders.user_id,
+      // orders.created_at
+      // FROM orders
+      // INNER JOIN brands
+      // ON orders.brand_id = brands.id
+      // INNER JOIN users
+      // ON orders.user_id = users.id
+      // WHERE orders.id = ${params.id}
+      // ORDER BY created_at ASC
+      // LIMIT 1
+      // `);
+      // order = order[0][0];
 
+      let order = "";
       return view.render("admin/orders/show", { order });
     } catch (error) {
       console.log(error);

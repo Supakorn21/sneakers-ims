@@ -22,12 +22,12 @@
           </div>
           <div class="col-md-6">
               <label >
-                <span   for="">First Name:</span> Joe
+                <span   for="">First Name:</span> {{orderInfo.order.f_name}}
               </label>
             </div>
           <div class="col-md-6">
             <label for="">
-                <span for="">Last Name:</span> Santos
+                <span for="">Last Name:</span> {{orderInfo.order.l_name}}
             </label>
             </div>
         </div>
@@ -38,32 +38,32 @@
           </div>
           <div class="col-md-6">
             <label for="">
-              <span for="">Address:</span> Joe
+              <span for="">Address:</span> {{orderInfo.order.address}}
             </label>
             </div>
           <div class="col-md-6">
             <label for="">
-              <span for="">Address 2:</span> Santos
+              <span for="">Address 2:</span> {{orderInfo.order.address_2}}
             </label>
             </div>
           <div class="col-md-3">
             <label for="">
-              <span for="">City:</span> Joe
+              <span for="">City:</span> {{orderInfo.order.city}}
             </label>
             </div>
           <div class="col-md-3">
             <label for="">
-              <span for="">State:</span> Santos
+              <span for="">State:</span> {{orderInfo.order.state}}
             </label>
             </div>
           <div class="col-md-3">
             <label for="">
-              <span for="">Zipcode:</span> Santos
+              <span for="">Zipcode:</span> 
             </label>
             </div>
           <div class="col-md-3">
             <label for="">
-              <span for="">Country:</span> Santos
+              <span for="">Country:</span> {{orderInfo.order.country}}
             </label>
           </div>
         </div>
@@ -74,17 +74,17 @@
           </div>
           <div class="col-md-4">
               <label for="">
-                <span for="">Payment Type:</span> Joe
+                <span for="">Payment Type:</span> {{orderInfo.order.payment_type}}
               </label>
             </div>
           <div class="col-md-4">
               <label for="">
-                <span for="">Created By:</span> Santos
+                <span for="">Created By:</span> 
               </label>
             </div>
           <div class="col-md-4">
               <label for="">
-                <span for="">Date:</span> Santos
+                <span for="">Date:</span> {{orderInfo.order.created_at}}
               </label>
           </div>
         </div>
@@ -109,19 +109,31 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Image</td>
-                      <td>Title</td>
-                      <td>Sku</td>
-                      <td>Quantity</td>
-                      <td>Price</td>
-                      <td><i class="ti-trash"></i></td>
+                    @each(item in orderInfo.items)
+                      <tr>
+                        <th scope="row">{{item.id}}</th>
+                        <td><img src="{{item.id}}" width="200px" alt=""></td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.sku}}</td>
+                        <td>{{item.qty}}</td>
+                        <td>{{item.price}}</td>
+                        <td><i class="ti-trash"></i></td>
                     </tr>
+                    @endeach
+                    
                   </tbody>
                 </table>
               </div>
             </div>
+          </div>
+        </div>
+        <hr>
+        <div class="section row">
+          <div class="col-md-12" style="text-align:end;">
+            <h2>Total Price</h2>
+          </div>
+          <div class="col-md-12" style="text-align:end;">
+            <h3>${{orderInfo.total_price}}</h3>
           </div>
         </div>
       </div>

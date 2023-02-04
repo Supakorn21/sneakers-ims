@@ -45,10 +45,11 @@ class ProductController {
       let country = post.form.country;
       let payment_type = post.form.payment_type;
       let user_id = post.form.user_id;
+      let zipcode = post.form.zipcode;
 
       const order = await Database.raw(
         `
-         INSERT INTO orders (f_name,l_name, address, address_2, city, state,
+         INSERT INTO orders (f_name,l_name, address, address_2, city, state, zipcode,
           country, payment_type, user_id
         )
       VALUES (
@@ -58,6 +59,7 @@ class ProductController {
           ${sqlString.escape(address_2)},
           ${sqlString.escape(city)},
           ${sqlString.escape(state)},
+          ${sqlString.escape(zipcode)},
           ${sqlString.escape(country)},
           ${sqlString.escape(payment_type)},
           ${parseInt(1)}

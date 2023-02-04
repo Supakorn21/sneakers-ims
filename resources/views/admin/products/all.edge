@@ -28,8 +28,9 @@
                 <th scope="col">Quantity</th>
                  <th scope="col">Size</th>
                 <th scope="col">Brand</th>
-                
+                <th scope="col">Price</th>
                 <th scope="col">created by</th>
+                <th scope="col">Status</th>
                 <th scope="col">Options</th>
                 
                 
@@ -49,7 +50,12 @@
                 <td>{{product.qty}}</td>
                 <td>{{product.size}}</td>
                 <td>{{product.brand}}</td>
+                <td>${{product.price}}</td>
                 <td>{{product.user}}</td>
+                <td>
+                  <span class="status-p {{(product.qty == 0) ? 'bg-danger' : 'bg-primary'}}
+                    ">{{(product.qty == 0) ? 'Sold Out' : 'Available'}}</span>
+                </td>
                 <td>
                   <ul class="d-flex justify-content-center">
                     <li class="mr-3">

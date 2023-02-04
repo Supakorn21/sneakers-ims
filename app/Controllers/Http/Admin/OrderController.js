@@ -94,8 +94,11 @@ VALUES (
   async show({ view, response, request, params }) {
     try {
       let order = await Database.raw(`
-          SELECT * FROM orders
-          WHERE id = ${params.id}
+          SELECT orders.*, concat(users.f_name, ' ',users.l_name) as user 
+          FROM orders
+          INNER JOIN users
+          ON orders.user_id = users.id
+          WHERE orders.id = ${params.id}
       `);
 
       let items = await Database.raw(`

@@ -112,7 +112,7 @@
                     @each(item in orderInfo.items)
                       <tr>
                         <th scope="row">{{item.id}}</th>
-                        <td><img src="{{item.id}}" width="200px" alt=""></td>
+                        <td><a href="/admin/products/{{item.id}}"><img src="{{item.img_url}}" width="200px" alt=""></a> </td>
                         <td>{{item.title}}</td>
                         <td>{{item.sku}}</td>
                         <td>{{item.qty}}</td>

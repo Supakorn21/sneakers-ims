@@ -6,7 +6,7 @@
     <li><a href="/admin/orders">Dashboard</a></li>
     <li><a href="/admin/orders">All Orders</a></li>
     <li>
-      <span>{{ order.title }}</span>
+      <span>{{ orderInfo.order.id }}</span>
     </li>
   </ul>
 </div>
@@ -117,7 +117,7 @@
                         <td>{{item.sku}}</td>
                         <td>{{item.qty}}</td>
                         <td>{{item.price}}</td>
-                        <td><i class="ti-trash"></i></td>
+                        <td><a href=""></a> <i class="ti-trash"></i></td>
                     </tr>
                     @endeach
                     
@@ -142,11 +142,11 @@
   <div class="col-md-3 mt-5">
     <div class="card">
       <div class="card-body">
-        <a href="/admin/orders/{{ order.id }}/edit" type="button" class="btn btn-primary btn-lg btn-block">
+        <a href="/admin/orders/{{ orderInfo.order.id }}/edit" type="button" class="btn btn-primary btn-lg btn-block">
           Edit
           <i class="ti-pencil-alt"></i>
         </a>
-        <a onclick="return confirm('are you sure?')" href="/admin/orders/{{ order.id }}/delete" type="button"
+        <a onclick="return confirm('are you sure?')" href="/admin/orders/{{ orderInfo.order.id }}/delete" type="button"
           class="btn btn-danger btn-lg btn-block">
           Delete
           <i class="ti-trash"></i>

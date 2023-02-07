@@ -19,6 +19,10 @@ const Route = use("Route");
 // API
 Route.get("api/admin/products", "Admin/ProductController.sendAllProducts");
 Route.post("api/admin/products", "Admin/OrderController.store");
+Route.get("api/admin/orders", "Admin/OrderController.sendAllOrders");
+Route.get("api/admin/items", "Admin/OrderController.sendAllItems");
+Route.get("api/admin/products", "Admin/OrderController.sendAllProducts");
+Route.post("api/admin/orders", "Admin/OrderController.update");
 
 // Admin/Products
 Route.get("/admin/products", "Admin/ProductController.index");

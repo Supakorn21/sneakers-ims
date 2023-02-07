@@ -6,6 +6,7 @@ const VENDOR_LIBS = ["babel-polyfill", "redux", "react-redux", "react-dom"];
 module.exports = {
   entry: {
     ordersForm: "./resources/assets/js/components/ordersForm.js",
+    editOrdersForm: "./resources/assets/js/components/editOrdersForm.js",
     vendor: VENDOR_LIBS,
   },
   output: {

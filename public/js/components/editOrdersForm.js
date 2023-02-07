@@ -1,6 +1,6 @@
-webpackJsonp([1],{
+webpackJsonp([0],{
 
-/***/ 242:
+/***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39,13 +39,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UsaStates = __webpack_require__(72).UsaStates;
 var countries = __webpack_require__(70);
 
-var Popup = function (_Component) {
-  _inherits(Popup, _Component);
+var editPopup = function (_Component) {
+  _inherits(editPopup, _Component);
 
-  function Popup() {
-    _classCallCheck(this, Popup);
+  function editPopup() {
+    _classCallCheck(this, editPopup);
 
-    var _this = _possibleConstructorReturn(this, (Popup.__proto__ || Object.getPrototypeOf(Popup)).call(this));
+    var _this = _possibleConstructorReturn(this, (editPopup.__proto__ || Object.getPrototypeOf(editPopup)).call(this));
 
     _this.change = function (e) {
       var name = e.target.name;
@@ -126,9 +126,10 @@ var Popup = function (_Component) {
         return product.id == _this.state.form.product;
       });
       product = product[0];
+      console.log(product);
       var itemData = {
-        productInfo: product,
-        qtyBuying: _this.state.form.qty
+        product: product,
+        qty: _this.state.form.qty
       };
       _this.props.addItemToList(itemData);
       _this.props.closePopup();
@@ -148,7 +149,7 @@ var Popup = function (_Component) {
     return _this;
   }
 
-  _createClass(Popup, [{
+  _createClass(editPopup, [{
     key: "test",
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -255,14 +256,14 @@ var Popup = function (_Component) {
     }
   }]);
 
-  return Popup;
+  return editPopup;
 }(_react.Component);
 
-exports.default = Popup;
+exports.default = editPopup;
 
 /***/ }),
 
-/***/ 266:
+/***/ 265:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -282,9 +283,9 @@ var _reactAddonsUpdate = __webpack_require__(71);
 
 var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
-var _Popup = __webpack_require__(242);
+var _editPopup = __webpack_require__(243);
 
-var _Popup2 = _interopRequireDefault(_Popup);
+var _editPopup2 = _interopRequireDefault(_editPopup);
 
 var _axios = __webpack_require__(105);
 
@@ -315,6 +316,219 @@ var Layout = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
+    _this.getEditData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var url, url_array, id, form, allItems, editAllProductsData, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, first, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, second, allProducts;
+
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              url = window.location.pathname;
+              url_array = url.split("/");
+              id = url_array[3];
+              _context.next = 6;
+              return _axios2.default.get("/api/admin/orders");
+
+            case 6:
+              form = _context.sent;
+
+              form = form.data;
+              // console.log(form);
+              form = form.filter(function (object) {
+                return object.id == id;
+              });
+              form = form[0];
+
+              _context.next = 12;
+              return _axios2.default.get("/api/admin/items");
+
+            case 12:
+              allItems = _context.sent;
+
+              allItems = allItems.data;
+              allItems = allItems.filter(function (object) {
+                return object.order_id == id;
+              });
+              allItems = allItems.map(function (item) {
+                return {
+                  product: item,
+                  qty: "" + item.qty
+                };
+              });
+
+              console.log(allItems);
+
+              _context.next = 19;
+              return _axios2.default.get("/api/admin/products");
+
+            case 19:
+              editAllProductsData = _context.sent;
+
+              editAllProductsData = editAllProductsData.data;
+              // console.log(editAllProductsData);
+              editAllProductsData = editAllProductsData.filter(function (_ref2) {
+                var id1 = _ref2.title;
+                return allItems.some(function (_ref3) {
+                  var id2 = _ref3.product;
+                  return id2.title === id1;
+                });
+              });
+              editAllProductsData = editAllProductsData.map(function (itemEdit) {
+                return {
+                  title: itemEdit.title,
+                  img_url: itemEdit.img_url
+                };
+              });
+
+              // push img_url into allproduct array
+              _iteratorNormalCompletion = true;
+              _didIteratorError = false;
+              _iteratorError = undefined;
+              _context.prev = 26;
+              _iterator = allItems[Symbol.iterator]();
+
+            case 28:
+              if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+                _context.next = 60;
+                break;
+              }
+
+              first = _step.value;
+              _iteratorNormalCompletion2 = true;
+              _didIteratorError2 = false;
+              _iteratorError2 = undefined;
+              _context.prev = 33;
+              _iterator2 = editAllProductsData[Symbol.iterator]();
+
+            case 35:
+              if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
+                _context.next = 43;
+                break;
+              }
+
+              second = _step2.value;
+
+              if (!(first.product.title === second.title)) {
+                _context.next = 40;
+                break;
+              }
+
+              first.product.img_url = second.img_url;
+              return _context.abrupt("break", 43);
+
+            case 40:
+              _iteratorNormalCompletion2 = true;
+              _context.next = 35;
+              break;
+
+            case 43:
+              _context.next = 49;
+              break;
+
+            case 45:
+              _context.prev = 45;
+              _context.t0 = _context["catch"](33);
+              _didIteratorError2 = true;
+              _iteratorError2 = _context.t0;
+
+            case 49:
+              _context.prev = 49;
+              _context.prev = 50;
+
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+
+            case 52:
+              _context.prev = 52;
+
+              if (!_didIteratorError2) {
+                _context.next = 55;
+                break;
+              }
+
+              throw _iteratorError2;
+
+            case 55:
+              return _context.finish(52);
+
+            case 56:
+              return _context.finish(49);
+
+            case 57:
+              _iteratorNormalCompletion = true;
+              _context.next = 28;
+              break;
+
+            case 60:
+              _context.next = 66;
+              break;
+
+            case 62:
+              _context.prev = 62;
+              _context.t1 = _context["catch"](26);
+              _didIteratorError = true;
+              _iteratorError = _context.t1;
+
+            case 66:
+              _context.prev = 66;
+              _context.prev = 67;
+
+              if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+              }
+
+            case 69:
+              _context.prev = 69;
+
+              if (!_didIteratorError) {
+                _context.next = 72;
+                break;
+              }
+
+              throw _iteratorError;
+
+            case 72:
+              return _context.finish(69);
+
+            case 73:
+              return _context.finish(66);
+
+            case 74:
+              _context.next = 76;
+              return _axios2.default.get("/api/admin/products");
+
+            case 76:
+              allProducts = _context.sent;
+
+              allProducts = allProducts.data;
+              // console.log(allProducts);
+
+              _this.setState({
+                form: form,
+                allItems: allItems,
+                allProducts: allProducts
+              }, function () {
+                return console.log(_this.state);
+              });
+              _context.next = 84;
+              break;
+
+            case 81:
+              _context.prev = 81;
+              _context.t2 = _context["catch"](0);
+
+              console.log(_context.t2);
+
+            case 84:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, _this2, [[0, 81], [26, 62, 66, 74], [33, 45, 49, 57], [50,, 52, 56], [67,, 69, 73]]);
+    }));
+
     _this.addItemToList = function (item) {
       var allItems = _this.state.allItems;
       var oldState = _this.state;
@@ -327,18 +541,18 @@ var Layout = function (_Component) {
       });
     };
 
-    _this.getAllProducts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    _this.getAllProducts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
       var allProducts;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              _context2.prev = 0;
+              _context2.next = 3;
               return _axios2.default.get("/api/admin/products");
 
             case 3:
-              allProducts = _context.sent;
+              allProducts = _context2.sent;
 
               allProducts = allProducts.data;
               console.log(allProducts);
@@ -347,31 +561,44 @@ var Layout = function (_Component) {
               }, function () {
                 return console.log(_this.state);
               });
-              _context.next = 12;
+              _context2.next = 12;
               break;
 
             case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](0);
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](0);
 
-              console.log(_context.t0);
+              console.log(_context2.t0);
 
             case 12:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, _this2, [[0, 9]]);
+      }, _callee2, _this2, [[0, 9]]);
     }));
 
-    _this.removeItem = function (index) {
+    _this.removeItem = function (id, index) {
       var oldState = _this.state;
+      var itemIndex = _this.state.allItems.findIndex(function (item) {
+        return item.product.id === id;
+      });
+
       var newState = (0, _reactAddonsUpdate2.default)(oldState, {
         allItems: {
-          $splice: [[index, 1]]
+          $splice: [[itemIndex, 1]]
+        },
+        deleteItemsId: {
+          $push: [{ id: id }]
         }
       });
-      _this.setState(newState);
+      // if (itemIndex !== -1) {
+      //   newState.allItems.splice(itemIndex, 1);
+      // }
+
+      _this.setState(newState, function () {
+        return console.log(_this.state);
+      });
     };
 
     _this.showAllItems = function () {
@@ -394,14 +621,14 @@ var Layout = function (_Component) {
               {
                 className: "item-img",
                 style: {
-                  background: "url('" + item.productInfo.img_url + "')"
+                  background: "url('" + item.product.img_url + "')"
                 }
               },
               _react2.default.createElement(
                 "div",
                 {
                   className: "item-delete",
-                  onClick: _this.removeItem.bind(null, index)
+                  onClick: _this.removeItem.bind(null, item.product.id, index)
                 },
                 _react2.default.createElement("i", { className: "ti-close" })
               )
@@ -409,7 +636,7 @@ var Layout = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "title" },
-              item.productInfo.title
+              item.product.title
             ),
             _react2.default.createElement(
               "div",
@@ -422,7 +649,7 @@ var Layout = function (_Component) {
               _react2.default.createElement(
                 "h4",
                 null,
-                item.qtyBuying
+                item.qty
               )
             )
           )
@@ -475,50 +702,58 @@ var Layout = function (_Component) {
       });
     };
 
-    _this.submitForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var self, csrf, submit;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    _this.submitForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+      var url, url_array, id, self, csrf, submit;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
+              url = window.location.pathname;
+              url_array = url.split("/");
+              id = url_array[3];
               self = window;
-              _context2.prev = 1;
+              _context3.prev = 4;
               csrf = document.getElementsByName("_csrf")[0].value;
-              _context2.next = 5;
-              return _axios2.default.post("/api/admin/products", {
+              _context3.next = 8;
+              return _axios2.default.post("/api/admin/orders", {
                 _csrf: csrf,
                 form: _this.state.form,
-                allItems: _this.state.allItems
+                allItems: _this.state.allItems,
+                id: id,
+                deleteItemsId: _this.state.deleteItemsId
               });
 
-            case 5:
-              submit = _context2.sent;
+            case 8:
+              submit = _context3.sent;
 
 
               // checking if data is success then redirect to /admin/orders page
               if (submit.data.status === "success") {
-                self.location.href = "/admin/orders";
+                console.log("success================");
+                console.log(submit.data);
+                console.log("success================");
+                self.location.href = "/admin/orders/" + id + "/edit";
               } else {
                 alert("\n          Status: " + submit.data.status + " \n\n          Message: " + submit.data.message + " \n\n          Error: " + submit.data.error + " \n\n          ");
               }
               console.log(submit);
-              _context2.next = 15;
+              _context3.next = 18;
               break;
 
-            case 10:
-              _context2.prev = 10;
-              _context2.t0 = _context2["catch"](1);
+            case 13:
+              _context3.prev = 13;
+              _context3.t0 = _context3["catch"](4);
 
               console.log("====ERROR SUBMITTING FORM========");
-              console.log(_context2.t0);
+              console.log(_context3.t0);
               console.log("====ERROR========");
 
-            case 15:
+            case 18:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, _this2, [[1, 10]]);
+      }, _callee3, _this2, [[4, 13]]);
     }));
 
     _this.state = {
@@ -535,7 +770,10 @@ var Layout = function (_Component) {
       },
       showPopup: false,
       allProducts: [],
-      allItems: []
+      allItems: [],
+      editItemData: [],
+      editAllProductsData: [],
+      deleteItemsId: []
     };
     return _this;
   }
@@ -543,29 +781,8 @@ var Layout = function (_Component) {
   _createClass(Layout, [{
     key: "componentWillMount",
     value: function componentWillMount() {
-      this.getAllProducts();
+      this.getEditData();
     }
-  }, {
-    key: "test",
-    value: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this);
-      }));
-
-      function test() {
-        return _ref3.apply(this, arguments);
-      }
-
-      return test;
-    }()
   }, {
     key: "render",
     value: function render() {
@@ -787,7 +1004,7 @@ var Layout = function (_Component) {
               )
             )
           ),
-          _react2.default.createElement(_Popup2.default, {
+          _react2.default.createElement(_editPopup2.default, {
             showPopup: this.state.showPopup,
             closePopup: this.addNewBtn,
             allProducts: this.state.allProducts,
@@ -810,10 +1027,10 @@ var Layout = function (_Component) {
   return Layout;
 }(_react.Component);
 
-var ordersForm = document.getElementById("ordersForm");
+var editOrdersForm = document.getElementById("editOrdersForm");
 
-_reactDom2.default.render(_react2.default.createElement(Layout, null), ordersForm);
+_reactDom2.default.render(_react2.default.createElement(Layout, null), editOrdersForm);
 
 /***/ })
 
-},[266]);
+},[265]);

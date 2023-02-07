@@ -15,7 +15,7 @@ class ProductController {
       // let size = post.size;
 
       let allProducts = await Database.raw(`
-      SELECT products.id, products.title,products.sku,
+      SELECT products.id, products.title,products.sku, products.price,
       brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
       products.material,products.qty,products.size, products.user_id,
       products.created_at
@@ -44,6 +44,8 @@ class ProductController {
       let size = post.size;
       let brand_id = post.brand_id;
       let img_url = post.img_url;
+      let price = post.price;
+
       await Database.raw(
         `
    INSERT INTO products (
@@ -54,6 +56,7 @@ class ProductController {
     description,
     brand_id,
     qty,
+    price,
     size,
     user_id
   )
@@ -65,6 +68,7 @@ VALUES (
     ${sqlString.escape(description)},
     ${parseInt(brand_id)},
     ${parseInt(qty)},
+    ${parseInt(price)},
     ${sqlString.escape(size)},
     ${parseInt(1)}
   )
@@ -94,7 +98,7 @@ VALUES (
       let product = await Database.raw(`
       SELECT products.id, products.title,products.sku,products.img_url, products.description,
       brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      products.material,products.qty,products.size, products.user_id,
+      products.material,products.qty, products.price,products.size, products.user_id,
       products.created_at
       FROM products
       INNER JOIN brands
@@ -118,7 +122,7 @@ VALUES (
       let product = await Database.raw(`
       SELECT products.id, products.title,products.sku,products.img_url, products.description,
       brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
-      products.material,products.qty,products.size, products.user_id,products.brand_id,
+      products.material,products.qty, products.price,products.size, products.user_id,products.brand_id,
       products.created_at
       FROM products
       INNER JOIN brands
@@ -156,6 +160,7 @@ VALUES (
       let size = post.size;
       let brand_id = post.brand_id;
       let img_url = post.img_url;
+      let price = post.price;
       await Database.raw(
         `
    UPDATE products
@@ -167,6 +172,7 @@ VALUES (
    description = ${sqlString.escape(description)},
    brand_id = ${parseInt(brand_id)},
    qty = ${parseInt(qty)},
+   price = ${parseInt(price)},
    size = ${sqlString.escape(size)},
    user_id = ${parseInt(1)} 
    WHERE id = ${id}
@@ -191,6 +197,29 @@ VALUES (
       return response.redirect(`/admin/products`);
     } catch (error) {
       return response.redirect("back");
+    }
+  }
+
+  async sendAllProducts({ view, response, request }) {
+    try {
+      let allProducts = await Database.raw(`
+      SELECT products.id, products.title,products.sku, products.price,
+      products.description, products.img_url,
+      brands.title as brand, concat(users.f_name, " ", users.l_name )as user,
+      products.material,products.qty,products.size, products.brand_id , products.user_id,
+      products.created_at
+      FROM products
+      INNER JOIN brands
+      ON products.brand_id = brands.id
+      INNER JOIN users
+      ON products.user_id = users.id ORDER BY created_at ASC
+      `);
+      allProducts = allProducts[0];
+
+      return allProducts;
+    } catch (error) {
+      console.log(error);
+      // return response.redirect("back");
     }
   }
 }

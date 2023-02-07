@@ -16,6 +16,14 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
+// API
+Route.get("api/admin/products", "Admin/ProductController.sendAllProducts");
+Route.post("api/admin/products", "Admin/OrderController.store");
+Route.get("api/admin/orders", "Admin/OrderController.sendAllOrders");
+Route.get("api/admin/items", "Admin/OrderController.sendAllItems");
+Route.get("api/admin/products", "Admin/OrderController.sendAllProducts");
+Route.post("api/admin/orders", "Admin/OrderController.update");
+
 // Admin/Products
 Route.get("/admin/products", "Admin/ProductController.index");
 Route.post("/admin/products", "Admin/ProductController.store");
@@ -33,3 +41,12 @@ Route.get("/admin/brands/:id", "Admin/BrandController.show");
 Route.get("/admin/brands/:id/edit", "Admin/BrandController.edit");
 Route.put("/admin/brands/:id", "Admin/BrandController.update");
 Route.get("/admin/brands/:id/delete", "Admin/BrandController.delete");
+
+// Admin/Orders
+Route.get("/admin/orders", "Admin/OrderController.index");
+Route.post("/admin/orders", "Admin/OrderController.store");
+Route.get("/admin/orders/create", "Admin/OrderController.create");
+Route.get("/admin/orders/:id", "Admin/OrderController.show");
+Route.get("/admin/orders/:id/edit", "Admin/OrderController.edit");
+Route.put("/admin/orders/:id", "Admin/OrderController.update");
+Route.get("/admin/orders/:id/delete", "Admin/OrderController.delete");

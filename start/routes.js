@@ -16,6 +16,9 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
+Route.get("/", "Admin/DashboardController.index");
+Route.get("/admin", "Admin/DashboardController.index");
+
 // API
 Route.get("api/admin/products", "Admin/ProductController.sendAllProducts");
 Route.post("api/admin/products", "Admin/OrderController.store");

@@ -107,7 +107,7 @@ VALUES (
       ON products.user_id = users.id
       WHERE products.id = ${params.id}
       ORDER BY created_at ASC
-      LIMIT 1
+      LIMIT 1;
       `);
       product = product[0][0];
 

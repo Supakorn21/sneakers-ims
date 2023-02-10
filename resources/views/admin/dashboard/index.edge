@@ -11,6 +11,17 @@
 @endsection 
 
 @section('content')
+<div class="row">
+<div class="col-md-6 ">
+  <div class="card">
+    <div class="card-body">
+     Chart
+     <canvas id="money-earned-chart">
+
+     </canvas>
+    </div>
+  </div>
+</div>
 <div class="col-md-6 ">
   <div class="card">
     <div class="card-body">
@@ -21,19 +32,74 @@
     </div>
   </div>
 </div>
+</div>
 @endsection
 
 @section('javascripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
 <script>
-  var ctx = document.getElementById("products-sold-chart");
+  var ctx = document.getElementById("money-earned-chart");
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ["Jan", "Feb", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"],
+        labels: [ 
+          @each(month in data.topSalesMothly.months)
+              "{{month}}",
+              @endeach
+            ],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3,12, 19, 3, 5, 2, 3],
+            label: 'Total Money Earned',
+            data: [  
+              @each(total_earned in data.topSalesMothly.total_earned)
+              {{total_earned}},
+              @endeach
+          ],
+            backgroundColor: [
+                'rgba(94,223,71, 0.2)',
+                'rgba(94,223,71, 0.2)',
+                'rgba(94,223,71, 0.2)',
+                'rgba(94,223,71, 0.2)',
+                'rgba(94,223,71, 0.2)',
+                'rgba(94,223,71, 0.2)'
+            ],
+            borderColor: [
+                'rgba(17,73,26,1)',
+                'rgba(17,73,26, 1)',
+                'rgba(17,73,26, 1)',
+                'rgba(17,73,26, 1)',
+                'rgba(17,73,26, 1)',
+                'rgba(17,73,26, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+ var ctx = document.getElementById("products-sold-chart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [ 
+          @each(month in data.topSalesMothly.months)
+              "{{month}}",
+              @endeach
+            ],
+        datasets: [{
+            label: 'Total Items Sold',
+            data: [  
+              @each(total_items in data.topSalesMothly.total_items)
+              {{total_items}},
+              @endeach
+          ],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

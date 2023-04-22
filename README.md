@@ -1,2 +1,2 @@
 # sneakers-ims
- The inventory management system using adonis and mysql
+ The inventory management system using adonisjs and mysql
